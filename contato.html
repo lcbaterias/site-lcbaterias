@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fale Conosco - LC Baterias</title>
+  <meta name="description" content="Entre em contato com a LC Baterias. Atendimento via WhatsApp, e-mail ou formulário. Respondemos rapidamente!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .map-placeholder {
+      width:100%;
+      height:300px;
+      background:linear-gradient(135deg,var(--bg-light),#d0e4f7);
+      border-radius:var(--radius);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      color:var(--primary);
+      font-size:48px;
+      gap:12px;
+      margin-top:24px;
+      border:1px solid var(--border);
+    }
+    .map-placeholder p {
+      font-size:15px;
+      color:var(--text-gray);
+      font-size:14px;
+    }
+    .whatsapp-card {
+      background:linear-gradient(135deg,#25D366,#1dba57);
+      border-radius:var(--radius);
+      padding:32px;
+      text-align:center;
+      color:#fff;
+      margin-top:24px;
+    }
+    .whatsapp-card h3 { font-size:22px;font-weight:800;margin-bottom:8px; }
+    .whatsapp-card p { opacity:0.9;margin-bottom:20px; }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-links">
+        <a href="tel:+5511999999999">📞 (11) 99999-9999</a>
+        <a href="mailto:contato@lcbaterias.com.br">✉️ contato@lcbaterias.com.br</a>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/icons/logo.png" class="logo-svg" alt="LC Baterias">
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Início</a></li>
+        <li><a href="produtos.html" class="nav-link">Produtos</a></li>
+        <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+        <li><a href="unidades.html" class="nav-link">Unidades</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contato.html" class="nav-link active">Contato</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="https://wa.me/5511999999999" class="nav-whatsapp" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-header-title">Fale Conosco</h1>
+      <p class="page-header-subtitle">Estamos aqui para ajudar. Escolha o canal de contato de sua preferência.</p>
+      <div class="breadcrumb">
+        <a href="index.html">Início</a> › <span>Contato</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section contact-section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div>
+          <div class="contact-info-card">
+            <h3 style="font-size:20px;font-weight:800;margin-bottom:24px;">Informações de Contato</h3>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">📞</div>
+              <div>
+                <div class="contact-info-label">Telefone</div>
+                <div class="contact-info-value">(11) 99999-9999</div>
+                <div style="font-size:13px;color:var(--text-light);margin-top:2px;">Seg a Sex: 8h às 18h | Sáb: 8h às 13h</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">✉️</div>
+              <div>
+                <div class="contact-info-label">E-mail</div>
+                <div class="contact-info-value">contato@lcbaterias.com.br</div>
+                <div style="font-size:13px;color:var(--text-light);margin-top:2px;">Respondemos em até 24 horas úteis</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">📍</div>
+              <div>
+                <div class="contact-info-label">Sede Principal</div>
+                <div class="contact-info-value">Av. das Baterias, 1234</div>
+                <div style="font-size:13px;color:var(--text-light);margin-top:2px;">São Paulo – SP, CEP 01310-100</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item" style="margin-bottom:0;">
+              <div class="contact-info-icon">🕐</div>
+              <div>
+                <div class="contact-info-label">Horário de Atendimento</div>
+                <div class="contact-info-value">Segunda a Sexta: 8h – 18h</div>
+                <div style="font-size:13px;color:var(--text-light);margin-top:2px;">Sábado: 8h – 13h | Domingo: Fechado</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="whatsapp-card">
+            <div style="font-size:40px;margin-bottom:8px;">💬</div>
+            <h3>Atendimento Rápido</h3>
+            <p>Prefere falar agora? Nosso WhatsApp é o canal mais rápido!</p>
+            <a href="https://wa.me/5511999999999?text=Olá! Preciso de ajuda da LC Baterias." class="btn btn-white" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Iniciar Conversa no WhatsApp
+            </a>
+          </div>
+
+          <div class="map-placeholder">
+            📍
+            <p>Mapa da nossa localização</p>
+            <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:13px;padding:10px 20px;">Ver no Google Maps</a>
+          </div>
+        </div>
+
+        <div class="contact-form-card">
+          <h3 style="font-size:22px;font-weight:800;margin-bottom:8px;">Envie uma Mensagem</h3>
+          <p style="color:var(--text-gray);font-size:15px;margin-bottom:28px;">Preencha o formulário e entraremos em contato em breve.</p>
+
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="nome">Nome completo *</label>
+                <input class="form-input" type="text" id="nome" name="nome" placeholder="Seu nome" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="telefone">Telefone / WhatsApp *</label>
+                <input class="form-input" type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">E-mail *</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="seu@email.com.br" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="assunto">Assunto</label>
+              <select class="form-select" id="assunto" name="assunto">
+                <option value="">Selecione o assunto</option>
+                <option>Orçamento de produto</option>
+                <option>Garantia e assistência técnica</option>
+                <option>Dúvidas sobre produtos</option>
+                <option>Parceria / Revendedor</option>
+                <option>Reclamação</option>
+                <option>Outro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="veiculo">Veículo / Aplicação (opcional)</label>
+              <input class="form-input" type="text" id="veiculo" name="veiculo" placeholder="Ex: Honda Civic 2020, Caminhão Mercedes-Benz Atego..." />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="mensagem">Mensagem *</label>
+              <textarea class="form-textarea" id="mensagem" name="mensagem" placeholder="Descreva sua dúvida, necessidade ou como podemos ajudá-lo..." required></textarea>
+            </div>
+
+            <div style="margin-bottom:20px;">
+              <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;color:var(--text-gray);">
+                <input type="checkbox" style="margin-top:3px;accent-color:var(--primary);" required />
+                Concordo com a <a href="#" style="color:var(--primary);">Política de Privacidade</a> e autorizo o uso dos meus dados para fins de atendimento.
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:16px;">
+              Enviar Mensagem
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding:28px 0;">
+        <div>© 2026 LC Baterias. Todos os direitos reservados.</div>
+        <div style="display:flex;gap:16px;">
+          <a href="index.html">Início</a>
+          <a href="produtos.html">Produtos</a>
+          <a href="unidades.html">Unidades</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="whatsapp-float">
+    <div class="whatsapp-bubble">Fale agora!</div>
+    <a href="https://wa.me/5511999999999" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

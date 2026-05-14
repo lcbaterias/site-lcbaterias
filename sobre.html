@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre Nós - LC Baterias</title>
+  <meta name="description" content="Conheça a história da LC Baterias. Fundada em 1989 em Taguatinga-DF, somos referência no atacado de baterias para todo o Centro-Oeste e Norte do Brasil." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before { content:''; position:absolute; left:12px; top:0; bottom:0; width:2px; background:var(--border); }
+    .timeline-item { position:relative; margin-bottom:36px; }
+    .timeline-dot { position:absolute; left:-36px; top:4px; width:22px; height:22px; border-radius:50%; background:var(--primary); border:3px solid #fff; box-shadow:0 0 0 3px var(--border); }
+    .timeline-year { font-size:13px; font-weight:800; color:var(--primary); text-transform:uppercase; letter-spacing:1px; }
+    .timeline-text { font-size:15px; color:var(--text-gray); margin-top:4px; line-height:1.6; }
+    .values-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+    .value-card { text-align:center; padding:32px 20px; background:#fff; border-radius:var(--radius); border:1px solid var(--border); }
+    .value-icon { font-size:40px; margin-bottom:14px; }
+    .value-title { font-size:17px; font-weight:800; margin-bottom:8px; }
+    .value-desc { font-size:14px; color:var(--text-gray); line-height:1.6; }
+    .team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
+    .team-card { text-align:center; }
+    .team-avatar { width:100px; height:100px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--primary-light)); display:flex; align-items:center; justify-content:center; color:#fff; font-size:32px; font-weight:900; margin:0 auto 16px; }
+    .team-name { font-size:17px; font-weight:800; }
+    .team-role { font-size:13px; color:var(--text-light); margin-top:4px; }
+    @media(max-width:768px){ .values-grid,.team-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:480px){ .values-grid,.team-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-links">
+        <a href="tel:+5511999999999">📞 (11) 99999-9999</a>
+        <a href="mailto:contato@lcbaterias.com.br">✉️ contato@lcbaterias.com.br</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/icons/logo.png" class="logo-svg" alt="LC Baterias">
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Início</a></li>
+        <li><a href="produtos.html" class="nav-link">Produtos</a></li>
+        <li><a href="sobre.html" class="nav-link active">Sobre</a></li>
+        <li><a href="unidades.html" class="nav-link">Unidades</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contato.html" class="nav-link">Contato</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="https://wa.me/5511999999999" class="nav-whatsapp" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-header-title">Sobre a LC Baterias</h1>
+      <p class="page-header-subtitle">37 anos de história, tradição e compromisso com a qualidade no mercado de baterias</p>
+      <div class="breadcrumb">
+        <a href="index.html">Início</a> › <span>Sobre</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT SECTION -->
+  <section class="section" style="background:#fff;">
+    <div class="container">
+      <div class="about-grid">
+        <div style="position:relative;">
+          <div class="about-img-placeholder">🔋</div>
+          <div class="about-badge-float">
+            <div class="about-badge-number">37</div>
+            <div class="about-badge-text">Anos no mercado</div>
+          </div>
+        </div>
+        <div class="about-text">
+          <span class="section-tag">Nossa História</span>
+          <h2 class="section-title">Energia e confiança desde 1989</h2>
+          <p>A LC Baterias tem sede em Taguatinga – DF e foi fundada em novembro de 1989 com o nome de <strong>ALVOCAR</strong>. Após uma reestruturação societária em 2002, passou a se chamar <strong>LC Baterias</strong>, atuando inicialmente no Distrito Federal e no oeste de Minas Gerais.</p>
+          <p>Após um contínuo processo de expansão nesses 37 anos de existência, conta com filiais estrategicamente posicionadas em Barreiras – BA, Salvador – BA, Goiânia – GO e Palmas – TO, atendendo com eficiência e rapidez os estados de Goiás, norte de Minas, Bahia, Tocantins, sul do Piauí, o Distrito Federal e em expansão para Sergipe.</p>
+          <p>Somos uma empresa de médio porte que atua no mercado de reposição como <strong>atacadista</strong>, atendendo todo o setor de auto peças, auto elétricas, moto peças, agrícola, energético, estacionário, náutico e todo o setor público.</p>
+          <ul class="about-list">
+            <li><div class="about-check">✓</div> Mais de 2.000 clientes entre empresas privadas, estaduais e federais</li>
+            <li><div class="about-check">✓</div> Presença em 6 estados + Distrito Federal</li>
+            <li><div class="about-check">✓</div> Mais de 120 colaboradores e frota de 50 veículos</li>
+            <li><div class="about-check">✓</div> 500 cidades atendidas em toda a região</li>
+            <li><div class="about-check">✓</div> Somente produtos de qualidade comprovada</li>
+          </ul>
+          <a href="contato.html" class="btn btn-primary">Fale Conosco</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section" style="background:var(--bg-light);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Nossos Valores</span>
+        <h2 class="section-title">O que nos guia todos os dias</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">🏆</div>
+          <div class="value-title">Qualidade</div>
+          <div class="value-desc">Trabalhamos apenas com produtos que passam pelos mais rigorosos controles de qualidade.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <div class="value-title">Confiança</div>
+          <div class="value-desc">Construímos relações duradouras com nossos clientes baseadas na transparência e integridade.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🚀</div>
+          <div class="value-title">Inovação</div>
+          <div class="value-desc">Estamos sempre atualizados com as últimas tecnologias do mercado de energia.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🌿</div>
+          <div class="value-title">Sustentabilidade</div>
+          <div class="value-desc">Comprometidos com o descarte responsável e com o meio ambiente para as próximas gerações.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section" style="background:#fff;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Nossa Trajetória</span>
+        <h2 class="section-title">Uma história de crescimento</h2>
+      </div>
+      <div style="max-width:600px;margin:0 auto;">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">1989</div>
+            <div class="timeline-text">Fundação em Taguatinga – DF com o nome de <strong>ALVOCAR</strong>, iniciando as atividades no mercado de baterias do Distrito Federal.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2002</div>
+            <div class="timeline-text">Reestruturação societária: a empresa passa a se chamar <strong>LC Baterias</strong> e amplia a atuação para o oeste de Minas Gerais.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2008</div>
+            <div class="timeline-text">Expansão para o Centro-Oeste com a abertura da filial em <strong>Goiânia – GO</strong>, fortalecendo o atendimento ao estado de Goiás.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2012</div>
+            <div class="timeline-text">Chegada ao Nordeste com as filiais de <strong>Barreiras – BA</strong> e <strong>Salvador – BA</strong>, atendendo toda a região baiana.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2016</div>
+            <div class="timeline-text">Abertura da filial em <strong>Palmas – TO</strong>, consolidando a presença no norte do Brasil e no estado do Tocantins.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2026</div>
+            <div class="timeline-text">37 anos de história: 5 unidades, mais de 120 colaboradores, frota de 50 veículos, 500 cidades e expansão para Sergipe.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="cta-section" style="padding:60px 0;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;color:#fff;">
+        <div>
+          <div style="font-size:48px;font-weight:900;">37</div>
+          <div style="font-size:15px;opacity:0.8;">Anos de Experiência</div>
+        </div>
+        <div>
+          <div style="font-size:48px;font-weight:900;">+2 mil</div>
+          <div style="font-size:15px;opacity:0.8;">Clientes Ativos</div>
+        </div>
+        <div>
+          <div style="font-size:48px;font-weight:900;">120+</div>
+          <div style="font-size:15px;opacity:0.8;">Colaboradores</div>
+        </div>
+        <div>
+          <div style="font-size:48px;font-weight:900;">500</div>
+          <div style="font-size:15px;opacity:0.8;">Cidades Atendidas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding:28px 0;">
+        <div>© 2026 LC Baterias. Todos os direitos reservados.</div>
+        <div style="display:flex;gap:16px;">
+          <a href="index.html">Início</a>
+          <a href="produtos.html">Produtos</a>
+          <a href="contato.html">Contato</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="whatsapp-float">
+    <div class="whatsapp-bubble">Fale com a gente!</div>
+    <a href="https://wa.me/5511999999999" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
