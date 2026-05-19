@@ -622,6 +622,9 @@ ul {
   color: var(--primary);
   line-height: 1;
 }
+.stat-number::before {
+  content: '+';
+}
 
 .stat-label {
   font-size: 13px;
