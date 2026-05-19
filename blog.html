@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     .blog-page-grid {
       display:grid;
@@ -118,8 +119,8 @@
   <div class="topbar">
     <div class="container">
       <div class="topbar-links">
-        <a href="tel:+5511999999999">📞 (11) 99999-9999</a>
-        <a href="mailto:contato@lcbaterias.com.br">✉️ contato@lcbaterias.com.br</a>
+        <a href="tel:+556133564004"><i class="fa-solid fa-phone"></i> (61) 3356-4004</a>
+        <a href="mailto:contato@lcbaterias.com.br"><i class="fa-solid fa-envelope"></i> contato@lcbaterias.com.br</a>
       </div>
     </div>
   </div>
@@ -138,7 +139,7 @@
         <li><a href="contato.html" class="nav-link">Contato</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="https://wa.me/5511999999999" class="nav-whatsapp" target="_blank" rel="noopener">
+        <a href="https://wa.me/556133564004" class="nav-whatsapp" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           WhatsApp
         </a>
@@ -162,12 +163,12 @@
 
       <!-- TOPIC FILTERS -->
       <div class="product-filters" style="margin-bottom:40px;">
-        <button class="filter-btn active">Todos</button>
-        <button class="filter-btn">Manutenção</button>
-        <button class="filter-btn">Tecnologia</button>
-        <button class="filter-btn">Sustentabilidade</button>
-        <button class="filter-btn">Dicas</button>
-        <button class="filter-btn">Frotas</button>
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="manutencao">Manutenção</button>
+        <button class="filter-btn" data-filter="tecnologia">Tecnologia</button>
+        <button class="filter-btn" data-filter="sustentabilidade">Sustentabilidade</button>
+        <button class="filter-btn" data-filter="dicas">Dicas</button>
+        <button class="filter-btn" data-filter="frotas">Frotas</button>
       </div>
 
       <div class="blog-page-grid">
@@ -176,110 +177,116 @@
         <div>
           <div class="blog-main-grid">
 
-            <div class="blog-card">
+            <div class="blog-card" data-category="manutencao">
               <div class="blog-img" style="background:linear-gradient(135deg,#003D82,#0057B8);">
-                <div class="blog-img-icon">🔋</div>
+                <div class="blog-img-icon"><i class="fa-solid fa-battery-full"></i></div>
               </div>
               <div class="blog-body">
                 <div class="blog-meta">
-                  <span class="blog-date">📅 10 Mai 2026</span>
-                  <span class="blog-read">⏱ 4 min</span>
+                  <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> 10 Mai 2026</span>
+                  <span class="blog-read"><i class="fa-solid fa-clock"></i> 4 min</span>
                 </div>
                 <span class="badge badge-blue" style="margin-bottom:10px;">Manutenção</span>
                 <h3 class="blog-title">5 sinais de que sua bateria precisa ser trocada</h3>
                 <p class="blog-excerpt">Motor que demora para pegar, luzes fracas e alertas no painel são alguns dos indícios de que a bateria está no fim da vida útil.</p>
-                <a href="#" class="blog-link">Ler artigo completo →</a>
+                <a href="blog-sinais-bateria.html" class="blog-link">Ler artigo completo →</a>
               </div>
             </div>
 
-            <div class="blog-card">
+            <div class="blog-card" data-category="tecnologia">
               <div class="blog-img" style="background:linear-gradient(135deg,#C8102E,#E8415C);">
-                <div class="blog-img-icon">⚡</div>
+                <div class="blog-img-icon"><i class="fa-solid fa-bolt"></i></div>
               </div>
               <div class="blog-body">
                 <div class="blog-meta">
-                  <span class="blog-date">📅 05 Mai 2026</span>
-                  <span class="blog-read">⏱ 3 min</span>
+                  <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> 05 Mai 2026</span>
+                  <span class="blog-read"><i class="fa-solid fa-clock"></i> 3 min</span>
                 </div>
                 <span class="badge badge-red" style="margin-bottom:10px;">Tecnologia</span>
                 <h3 class="blog-title">Bateria AGM vs. Convencional: qual escolher?</h3>
                 <p class="blog-excerpt">Entenda as diferenças entre os tipos de bateria e descubra qual é a melhor opção para o seu veículo e perfil de uso.</p>
-                <a href="#" class="blog-link">Ler artigo completo →</a>
+                <a href="blog-agm-vs-convencional.html" class="blog-link">Ler artigo completo →</a>
               </div>
             </div>
 
-            <div class="blog-card">
+            <div class="blog-card" data-category="sustentabilidade">
               <div class="blog-img" style="background:linear-gradient(135deg,#059669,#10B981);">
-                <div class="blog-img-icon">♻️</div>
+                <div class="blog-img-icon"><i class="fa-solid fa-recycle"></i></div>
               </div>
               <div class="blog-body">
                 <div class="blog-meta">
-                  <span class="blog-date">📅 28 Abr 2026</span>
-                  <span class="blog-read">⏱ 5 min</span>
+                  <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> 28 Abr 2026</span>
+                  <span class="blog-read"><i class="fa-solid fa-clock"></i> 5 min</span>
                 </div>
                 <span class="badge badge-green" style="margin-bottom:10px;">Sustentabilidade</span>
                 <h3 class="blog-title">Como descartar sua bateria usada corretamente</h3>
                 <p class="blog-excerpt">A bateria usada contém substâncias tóxicas. Aprenda a fazer o descarte correto e contribuir para o meio ambiente.</p>
-                <a href="#" class="blog-link">Ler artigo completo →</a>
+                <a href="blog-descarte-bateria.html" class="blog-link">Ler artigo completo →</a>
               </div>
             </div>
 
-            <div class="blog-card">
+            <div class="blog-card" data-category="frotas">
               <div class="blog-img" style="background:linear-gradient(135deg,#7C3AED,#A78BFA);">
-                <div class="blog-img-icon">🚛</div>
+                <div class="blog-img-icon"><i class="fa-solid fa-truck"></i></div>
               </div>
               <div class="blog-body">
                 <div class="blog-meta">
-                  <span class="blog-date">📅 20 Abr 2026</span>
-                  <span class="blog-read">⏱ 6 min</span>
+                  <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> 20 Abr 2026</span>
+                  <span class="blog-read"><i class="fa-solid fa-clock"></i> 6 min</span>
                 </div>
                 <span class="badge" style="background:rgba(124,58,237,0.1);color:#7C3AED;margin-bottom:10px;">Frotas</span>
                 <h3 class="blog-title">Gestão de baterias para frotas: guia completo</h3>
                 <p class="blog-excerpt">Como planejar a troca de baterias em frotas de veículos, reduzir custos e aumentar a disponibilidade dos veículos.</p>
-                <a href="#" class="blog-link">Ler artigo completo →</a>
+                <a href="blog-gestao-frotas.html" class="blog-link">Ler artigo completo →</a>
               </div>
             </div>
 
-            <div class="blog-card">
+            <div class="blog-card" data-category="dicas">
               <div class="blog-img" style="background:linear-gradient(135deg,#D97706,#F59E0B);">
-                <div class="blog-img-icon">🌡️</div>
+                <div class="blog-img-icon"><i class="fa-solid fa-temperature-half"></i></div>
               </div>
               <div class="blog-body">
                 <div class="blog-meta">
-                  <span class="blog-date">📅 12 Abr 2026</span>
-                  <span class="blog-read">⏱ 3 min</span>
+                  <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> 12 Abr 2026</span>
+                  <span class="blog-read"><i class="fa-solid fa-clock"></i> 3 min</span>
                 </div>
                 <span class="badge" style="background:rgba(217,119,6,0.1);color:#D97706;margin-bottom:10px;">Dicas</span>
                 <h3 class="blog-title">Bateria no inverno: como evitar problemas</h3>
                 <p class="blog-excerpt">O frio reduz a capacidade da bateria. Saiba o que fazer para não ser surpreendido nos dias mais frios do ano.</p>
-                <a href="#" class="blog-link">Ler artigo completo →</a>
+                <a href="blog-bateria-inverno.html" class="blog-link">Ler artigo completo →</a>
               </div>
             </div>
 
-            <div class="blog-card">
+            <div class="blog-card" data-category="tecnologia">
               <div class="blog-img" style="background:linear-gradient(135deg,#0E7490,#06B6D4);">
-                <div class="blog-img-icon">🔌</div>
+                <div class="blog-img-icon"><i class="fa-solid fa-plug"></i></div>
               </div>
               <div class="blog-body">
                 <div class="blog-meta">
-                  <span class="blog-date">📅 03 Abr 2026</span>
-                  <span class="blog-read">⏱ 4 min</span>
+                  <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> 03 Abr 2026</span>
+                  <span class="blog-read"><i class="fa-solid fa-clock"></i> 4 min</span>
                 </div>
                 <span class="badge badge-blue" style="margin-bottom:10px;">Tecnologia</span>
                 <h3 class="blog-title">O que é a tecnologia Stop/Start e como ela afeta a bateria</h3>
                 <p class="blog-excerpt">Carros modernos com sistema Stop/Start precisam de baterias especiais AGM ou EFB. Entenda o porquê.</p>
-                <a href="#" class="blog-link">Ler artigo completo →</a>
+                <a href="blog-stop-start.html" class="blog-link">Ler artigo completo →</a>
               </div>
             </div>
 
           </div>
 
+          <!-- SEM RESULTADOS -->
+          <div id="blog-no-results" style="display:none;text-align:center;padding:48px 0;color:var(--text-gray);">
+            <i class="fa-solid fa-magnifying-glass" style="font-size:40px;opacity:.3;margin-bottom:16px;display:block;"></i>
+            <p style="font-size:16px;font-weight:600;">Nenhum post encontrado.</p>
+            <p style="font-size:14px;">Tente outro termo ou selecione uma categoria diferente.</p>
+          </div>
+
           <!-- PAGINAÇÃO -->
-          <div style="display:flex;justify-content:center;gap:8px;margin-top:40px;">
-            <button style="width:40px;height:40px;border-radius:10px;border:2px solid var(--primary);background:var(--primary);color:#fff;font-weight:700;cursor:pointer;">1</button>
-            <button style="width:40px;height:40px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--text-gray);font-weight:600;cursor:pointer;">2</button>
-            <button style="width:40px;height:40px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--text-gray);font-weight:600;cursor:pointer;">3</button>
-            <button style="width:40px;height:40px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--text-gray);font-weight:600;cursor:pointer;">→</button>
+          <div id="blog-pagination" style="display:flex;justify-content:center;gap:8px;margin-top:40px;">
+            <button class="page-btn" data-page="1" style="width:40px;height:40px;border-radius:10px;border:2px solid var(--primary);background:var(--primary);color:#fff;font-weight:700;cursor:pointer;">1</button>
+            <button class="page-btn" data-page="2" style="width:40px;height:40px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--text-gray);font-weight:600;cursor:pointer;">2</button>
+            <button class="page-btn page-btn-next" style="width:40px;height:40px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--text-gray);font-weight:600;cursor:pointer;">→</button>
           </div>
         </div>
 
@@ -287,52 +294,52 @@
         <aside class="blog-sidebar">
 
           <div class="widget">
-            <div class="widget-title">🔍 Buscar</div>
+            <div class="widget-title"><i class="fa-solid fa-magnifying-glass"></i> Buscar</div>
             <div style="display:flex;gap:8px;">
-              <input type="text" class="form-input" placeholder="Buscar no blog..." style="flex:1;" />
-              <button class="btn btn-primary" style="padding:12px 16px;">→</button>
+              <input type="text" id="blog-search" class="form-input" placeholder="Buscar no blog..." style="flex:1;" />
+              <button id="blog-search-btn" class="btn btn-primary" style="padding:12px 16px;">→</button>
             </div>
           </div>
 
           <div class="widget">
-            <div class="widget-title">🏷️ Categorias</div>
+            <div class="widget-title"><i class="fa-solid fa-tags"></i> Categorias</div>
             <ul style="display:flex;flex-direction:column;gap:8px;">
               <li style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-gray);padding:6px 0;border-bottom:1px solid var(--border);">
-                <a href="#" style="color:inherit;">Manutenção</a> <span class="badge badge-blue">8</span>
+                <a href="#" class="sidebar-cat-link" data-filter="manutencao" style="color:inherit;">Manutenção</a> <span class="badge badge-blue">1</span>
               </li>
               <li style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-gray);padding:6px 0;border-bottom:1px solid var(--border);">
-                <a href="#" style="color:inherit;">Tecnologia</a> <span class="badge badge-blue">6</span>
+                <a href="#" class="sidebar-cat-link" data-filter="tecnologia" style="color:inherit;">Tecnologia</a> <span class="badge badge-blue">2</span>
               </li>
               <li style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-gray);padding:6px 0;border-bottom:1px solid var(--border);">
-                <a href="#" style="color:inherit;">Sustentabilidade</a> <span class="badge badge-green">4</span>
+                <a href="#" class="sidebar-cat-link" data-filter="sustentabilidade" style="color:inherit;">Sustentabilidade</a> <span class="badge badge-green">1</span>
               </li>
               <li style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-gray);padding:6px 0;border-bottom:1px solid var(--border);">
-                <a href="#" style="color:inherit;">Dicas</a> <span class="badge badge-blue">10</span>
+                <a href="#" class="sidebar-cat-link" data-filter="dicas" style="color:inherit;">Dicas</a> <span class="badge badge-blue">1</span>
               </li>
               <li style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-gray);padding:6px 0;">
-                <a href="#" style="color:inherit;">Frotas</a> <span class="badge badge-blue">3</span>
+                <a href="#" class="sidebar-cat-link" data-filter="frotas" style="color:inherit;">Frotas</a> <span class="badge badge-blue">1</span>
               </li>
             </ul>
           </div>
 
           <div class="widget">
-            <div class="widget-title">📰 Posts Recentes</div>
+            <div class="widget-title"><i class="fa-solid fa-newspaper"></i> Posts Recentes</div>
             <div class="recent-post">
-              <div class="recent-post-thumb">🔋</div>
+              <div class="recent-post-thumb"><i class="fa-solid fa-battery-full"></i></div>
               <div>
                 <div class="recent-post-title"><a href="#">5 sinais de que sua bateria precisa ser trocada</a></div>
                 <div class="recent-post-date">10 Mai 2026</div>
               </div>
             </div>
             <div class="recent-post">
-              <div class="recent-post-thumb">⚡</div>
+              <div class="recent-post-thumb"><i class="fa-solid fa-bolt"></i></div>
               <div>
                 <div class="recent-post-title"><a href="#">Bateria AGM vs. Convencional</a></div>
                 <div class="recent-post-date">05 Mai 2026</div>
               </div>
             </div>
             <div class="recent-post">
-              <div class="recent-post-thumb">♻️</div>
+              <div class="recent-post-thumb"><i class="fa-solid fa-recycle"></i></div>
               <div>
                 <div class="recent-post-title"><a href="#">Como descartar sua bateria corretamente</a></div>
                 <div class="recent-post-date">28 Abr 2026</div>
@@ -341,7 +348,7 @@
           </div>
 
           <div class="widget">
-            <div class="widget-title">🏷️ Tags</div>
+            <div class="widget-title"><i class="fa-solid fa-tags"></i> Tags</div>
             <div class="tag-cloud">
               <span class="tag">Bateria</span>
               <span class="tag">Automóvel</span>
@@ -357,7 +364,7 @@
           </div>
 
           <div class="widget newsletter-widget">
-            <div class="widget-title">📧 Newsletter</div>
+            <div class="widget-title"><i class="fa-solid fa-envelope"></i> Newsletter</div>
             <p>Receba dicas e novidades direto no seu e-mail, sem spam!</p>
             <input type="email" class="newsletter-input" placeholder="seu@email.com.br" />
             <button class="btn btn-white" style="width:100%;justify-content:center;">Inscrever-se</button>
@@ -383,7 +390,7 @@
 
   <div class="whatsapp-float">
     <div class="whatsapp-bubble">Tire suas dúvidas!</div>
-    <a href="https://wa.me/5511999999999" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <a href="https://wa.me/556133564004" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
       <svg viewBox="0 0 24 24"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
   </div>

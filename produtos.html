@@ -3,99 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Produtos - LC Baterias</title>
-  <meta name="description" content="Catálogo completo de baterias LC: automotivas, motos, caminhões, industriais e nobreak. Encontre a bateria ideal para o seu veículo." />
+  <title>Linhas e Marcas - LC Baterias</title>
+  <meta name="description" content="Conheça as linhas de atendimento e as marcas que a LC Baterias distribui: Cral, Heliar e Target para automotivo, agrícola, industrial, náutico e setor público." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    .products-page-grid {
+    .linhas-grid {
       display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 32px;
-      align-items: start;
-    }
-    .sidebar {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      position: sticky;
-      top: 90px;
-    }
-    .sidebar-title {
-      font-size: 14px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-dark);
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--primary);
-    }
-    .sidebar-group {
-      margin-bottom: 28px;
-    }
-    .sidebar-option {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 0;
-      cursor: pointer;
-      font-size: 14px;
-      color: var(--text-gray);
-      border-radius: var(--radius-sm);
-      transition: color var(--transition);
-    }
-    .sidebar-option:hover {
-      color: var(--primary);
-    }
-    .sidebar-option input[type="checkbox"] {
-      accent-color: var(--primary);
-      width: 16px;
-      height: 16px;
-    }
-    .sidebar-option.active-filter {
-      color: var(--primary);
-      font-weight: 700;
-    }
-    .product-count {
-      font-size: 14px;
-      color: var(--text-light);
-      margin-bottom: 20px;
-    }
-    .products-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .sort-select {
-      padding: 10px 16px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      color: var(--text-dark);
-      background: #fff;
-      cursor: pointer;
-      outline: none;
-    }
-    .sort-select:focus { border-color: var(--primary); }
-    .products-full-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
     }
-    @media (max-width: 1024px) {
-      .products-page-grid { grid-template-columns: 1fr; }
-      .sidebar { position: static; }
-      .products-full-grid { grid-template-columns: repeat(2, 1fr); }
+    .linha-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     }
-    @media (max-width: 600px) {
-      .products-full-grid { grid-template-columns: 1fr; }
+    .linha-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,87,184,0.15);
+      border-color: var(--primary);
+    }
+    .linha-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      display: block;
+      color: var(--primary);
+    }
+    .linha-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .linha-desc {
+      font-size: 13px;
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+    .marcas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .marca-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .marca-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,87,184,0.15);
+    }
+    .marca-header {
+      padding: 40px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .marca-name {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+    .marca-body {
+      padding: 28px 32px;
+    }
+    .marca-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+    .marca-desc {
+      font-size: 14px;
+      color: var(--text-gray);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .marca-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .marca-tag {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-gray);
+    }
+    @media (max-width: 1024px) {
+      .linhas-grid { grid-template-columns: repeat(2, 1fr); }
+      .marcas-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .linhas-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -105,8 +119,8 @@
   <div class="topbar">
     <div class="container">
       <div class="topbar-links">
-        <a href="tel:+5511999999999">📞 (11) 99999-9999</a>
-        <a href="mailto:contato@lcbaterias.com.br">✉️ contato@lcbaterias.com.br</a>
+        <a href="tel:+556133564004"><i class="fa-solid fa-phone"></i> (61) 3356-4004</a>
+        <a href="mailto:contato@lcbaterias.com.br"><i class="fa-solid fa-envelope"></i> contato@lcbaterias.com.br</a>
       </div>
       <div class="topbar-social">
         <a href="#" aria-label="Instagram">IG</a>
@@ -130,7 +144,7 @@
         <li><a href="contato.html" class="nav-link">Contato</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="https://wa.me/5511999999999" class="nav-whatsapp" target="_blank" rel="noopener">
+        <a href="https://wa.me/556133564004" class="nav-whatsapp" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           WhatsApp
         </a>
@@ -142,290 +156,142 @@
   <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="container">
-      <h1 class="page-header-title">Catálogo de Produtos</h1>
-      <p class="page-header-subtitle">Linha completa de baterias para todos os tipos de veículos e aplicações</p>
+      <h1 class="page-header-title">Linhas e Marcas</h1>
+      <p class="page-header-subtitle">Segmentos que atendemos e marcas que distribuímos em todo o Centro-Oeste, Norte e Nordeste</p>
       <div class="breadcrumb">
-        <a href="index.html">Início</a> › <span>Produtos</span>
+        <a href="index.html">Início</a> › <span>Linhas e Marcas</span>
       </div>
     </div>
   </div>
 
-  <!-- PRODUCTS PAGE -->
+  <!-- LINHAS QUE ATENDEMOS -->
+  <section class="section" style="background:#fff;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Segmentos</span>
+        <h2 class="section-title">Linhas que Atendemos</h2>
+        <p class="section-subtitle">Atendemos o mercado de reposição como atacadista em múltiplos segmentos, sempre com produtos de qualidade comprovada.</p>
+      </div>
+      <div class="linhas-grid">
+
+        <div class="linha-card">
+          <span class="linha-icon"><i class="fa-solid fa-car"></i></span>
+          <div class="linha-title">Auto Peças</div>
+          <div class="linha-desc">Baterias para veículos de passeio, utilitários e SUVs. Atendemos auto peças e auto elétricas em toda a região.</div>
+        </div>
+
+        <div class="linha-card">
+          <span class="linha-icon"><i class="fa-solid fa-motorcycle"></i></span>
+          <div class="linha-title">Moto Peças</div>
+          <div class="linha-desc">Linha completa de baterias para motocicletas, scooters e triciclos de todas as cilindradas.</div>
+        </div>
+
+        <div class="linha-card">
+          <span class="linha-icon"><i class="fa-solid fa-truck"></i></span>
+          <div class="linha-title">Pesados</div>
+          <div class="linha-desc">Baterias para caminhões, ônibus, carretas e veículos de grande porte com alta demanda de potência.</div>
+        </div>
+
+        <div class="linha-card">
+          <span class="linha-icon"><i class="fa-solid fa-tractor"></i></span>
+          <div class="linha-title">Agrícola</div>
+          <div class="linha-desc">Soluções para tratores, colheitadeiras, máquinas agrícolas e equipamentos do campo.</div>
+        </div>
+
+        <div class="linha-card">
+          <span class="linha-icon"><i class="fa-solid fa-industry"></i></span>
+          <div class="linha-title">Industrial / Estacionário</div>
+          <div class="linha-desc">Baterias estacionárias para no-breaks, sistemas de energia ininterrupta e equipamentos industriais.</div>
+        </div>
+
+        <div class="linha-card">
+          <span class="linha-icon"><i class="fa-solid fa-anchor"></i></span>
+          <div class="linha-title">Náutico</div>
+          <div class="linha-desc">Baterias de ciclo profundo para embarcações, lanchas e equipamentos náuticos.</div>
+        </div>
+
+        <div class="linha-card">
+          <span class="linha-icon"><i class="fa-solid fa-building-columns"></i></span>
+          <div class="linha-title">Setor Público</div>
+          <div class="linha-desc">Atendemos órgãos estaduais e federais, prefeituras e empresas públicas via processo licitatório.</div>
+        </div>
+
+        <div class="linha-card" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));border-color:var(--primary);">
+          <span class="linha-icon"><i class="fa-solid fa-comments"></i></span>
+          <div class="linha-title" style="color:#fff;">Precisa de outro segmento?</div>
+          <div class="linha-desc" style="color:rgba(255,255,255,0.85);margin-bottom:20px;">Fale com nosso time comercial e veja como podemos atender sua necessidade.</div>
+          <a href="https://wa.me/556133564004?text=Olá! Gostaria de informações sobre atendimento para meu segmento." class="btn btn-white" style="font-size:13px;" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSSAS MARCAS -->
   <section class="section" style="background:var(--bg-light);">
     <div class="container">
-
-      <!-- CATEGORY CARDS -->
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:40px;">
-        <a href="#" class="feature-card" style="padding:20px 12px;text-align:center;text-decoration:none;" data-filter-main="automovel">
-          <div style="font-size:32px;margin-bottom:8px;">🚗</div>
-          <div style="font-size:13px;font-weight:700;">Automóvel</div>
-        </a>
-        <a href="#" class="feature-card" style="padding:20px 12px;text-align:center;text-decoration:none;" data-filter-main="moto">
-          <div style="font-size:32px;margin-bottom:8px;">🏍️</div>
-          <div style="font-size:13px;font-weight:700;">Moto</div>
-        </a>
-        <a href="#" class="feature-card" style="padding:20px 12px;text-align:center;text-decoration:none;" data-filter-main="caminhao">
-          <div style="font-size:32px;margin-bottom:8px;">🚛</div>
-          <div style="font-size:13px;font-weight:700;">Caminhão</div>
-        </a>
-        <a href="#" class="feature-card" style="padding:20px 12px;text-align:center;text-decoration:none;" data-filter-main="industrial">
-          <div style="font-size:32px;margin-bottom:8px;">🏭</div>
-          <div style="font-size:13px;font-weight:700;">Industrial</div>
-        </a>
-        <a href="#" class="feature-card" style="padding:20px 12px;text-align:center;text-decoration:none;" data-filter-main="nobreak">
-          <div style="font-size:32px;margin-bottom:8px;">🔌</div>
-          <div style="font-size:13px;font-weight:700;">Nobreak</div>
-        </a>
+      <div class="section-header">
+        <span class="section-tag">Parceiros</span>
+        <h2 class="section-title">Marcas que Distribuímos</h2>
+        <p class="section-subtitle">Trabalhamos com marcas reconhecidas pela qualidade e confiabilidade no mercado de baterias.</p>
       </div>
+      <div class="marcas-grid">
 
-      <div class="products-page-grid">
-
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-          <div class="sidebar-group">
-            <div class="sidebar-title">Categoria</div>
-            <label class="sidebar-option">
-              <input type="checkbox" checked> Automóvel
-            </label>
-            <label class="sidebar-option">
-              <input type="checkbox" checked> Moto
-            </label>
-            <label class="sidebar-option">
-              <input type="checkbox" checked> Caminhão / Ônibus
-            </label>
-            <label class="sidebar-option">
-              <input type="checkbox" checked> Industrial
-            </label>
-            <label class="sidebar-option">
-              <input type="checkbox" checked> Nobreak / UPS
-            </label>
-            <label class="sidebar-option">
-              <input type="checkbox" checked> Trator / Agrícola
-            </label>
+        <div class="marca-card">
+          <div class="marca-header" style="background:linear-gradient(135deg,#003D82,#0057B8);">
+            <span class="marca-name">CRAL</span>
           </div>
-
-          <div class="sidebar-group">
-            <div class="sidebar-title">Capacidade (Ah)</div>
-            <label class="sidebar-option"><input type="checkbox"> Até 40 Ah</label>
-            <label class="sidebar-option"><input type="checkbox" checked> 41 – 70 Ah</label>
-            <label class="sidebar-option"><input type="checkbox"> 71 – 100 Ah</label>
-            <label class="sidebar-option"><input type="checkbox"> Acima de 100 Ah</label>
-          </div>
-
-          <div class="sidebar-group">
-            <div class="sidebar-title">Tecnologia</div>
-            <label class="sidebar-option"><input type="checkbox" checked> Convencional</label>
-            <label class="sidebar-option"><input type="checkbox"> AGM</label>
-            <label class="sidebar-option"><input type="checkbox"> VRLA / Selada</label>
-            <label class="sidebar-option"><input type="checkbox"> EFB</label>
-            <label class="sidebar-option"><input type="checkbox"> Lítio</label>
-          </div>
-
-          <div class="sidebar-group">
-            <div class="sidebar-title">Garantia</div>
-            <label class="sidebar-option"><input type="checkbox"> 1 ano</label>
-            <label class="sidebar-option"><input type="checkbox" checked> 2 anos</label>
-            <label class="sidebar-option"><input type="checkbox"> 3 anos</label>
-          </div>
-
-          <a href="https://wa.me/5511999999999?text=Preciso de ajuda para escolher a bateria certa" class="btn btn-primary" style="width:100%;justify-content:center;" target="_blank" rel="noopener">
-            💬 Ajuda para escolher
-          </a>
-        </aside>
-
-        <!-- PRODUCTS LIST -->
-        <div>
-          <div class="products-toolbar">
-            <div class="product-count"><strong>18 produtos</strong> encontrados</div>
-            <select class="sort-select">
-              <option>Mais relevantes</option>
-              <option>Menor capacidade</option>
-              <option>Maior capacidade</option>
-              <option>Menor corrente</option>
-            </select>
-          </div>
-
-          <div class="products-full-grid">
-
-            <div class="product-card" data-category="automovel">
-              <div class="product-img">
-                <div class="product-img-placeholder"><svg width="70" height="70" viewBox="0 0 24 24" fill="#0057B8" opacity="0.35"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
-                <div class="product-badge"><span class="badge badge-blue">Popular</span></div>
-              </div>
-              <div class="product-info">
-                <div class="product-category">Automóvel</div>
-                <div class="product-name">LC Premium 45Ah</div>
-                <div class="product-specs">
-                  <span class="product-spec">⚡ 45 Ah</span>
-                  <span class="product-spec">🔋 380 A</span>
-                  <span class="product-spec">🛡️ 2 anos</span>
-                </div>
-                <div class="product-footer">
-                  <a href="https://wa.me/5511999999999?text=Interesse: LC Premium 45Ah" class="product-link" target="_blank">Ver preço →</a>
-                  <a href="https://wa.me/5511999999999?text=Quero comprar: LC Premium 45Ah" class="btn btn-primary" style="padding:8px 16px;font-size:13px;" target="_blank" rel="noopener">Comprar</a>
-                </div>
-              </div>
+          <div class="marca-body">
+            <div class="marca-title">Cral Baterias</div>
+            <div class="marca-desc">Marca brasileira com décadas de tradição no mercado de baterias automotivas e industriais. Reconhecida pela durabilidade e custo-benefício em todo o território nacional.</div>
+            <div class="marca-tags">
+              <span class="marca-tag">Automotivo</span>
+              <span class="marca-tag">Moto</span>
+              <span class="marca-tag">Pesados</span>
+              <span class="marca-tag">Industrial</span>
+              <span class="marca-tag">Agrícola</span>
             </div>
-
-            <div class="product-card" data-category="automovel">
-              <div class="product-img">
-                <div class="product-img-placeholder"><svg width="70" height="70" viewBox="0 0 24 24" fill="#0057B8" opacity="0.35"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
-                <div class="product-badge"><span class="badge badge-blue">Popular</span></div>
-              </div>
-              <div class="product-info">
-                <div class="product-category">Automóvel</div>
-                <div class="product-name">LC Premium 60Ah</div>
-                <div class="product-specs">
-                  <span class="product-spec">⚡ 60 Ah</span>
-                  <span class="product-spec">🔋 480 A</span>
-                  <span class="product-spec">🛡️ 2 anos</span>
-                </div>
-                <div class="product-footer">
-                  <a href="https://wa.me/5511999999999?text=Interesse: LC Premium 60Ah" class="product-link" target="_blank">Ver preço →</a>
-                  <a href="https://wa.me/5511999999999?text=Quero comprar: LC Premium 60Ah" class="btn btn-primary" style="padding:8px 16px;font-size:13px;" target="_blank" rel="noopener">Comprar</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="product-card" data-category="automovel">
-              <div class="product-img">
-                <div class="product-img-placeholder"><svg width="70" height="70" viewBox="0 0 24 24" fill="#0057B8" opacity="0.35"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
-                <div class="product-badge"><span class="badge badge-red">Novo</span></div>
-              </div>
-              <div class="product-info">
-                <div class="product-category">Automóvel</div>
-                <div class="product-name">LC Turbo 70Ah</div>
-                <div class="product-specs">
-                  <span class="product-spec">⚡ 70 Ah</span>
-                  <span class="product-spec">🔋 580 A</span>
-                  <span class="product-spec">🛡️ 2 anos</span>
-                </div>
-                <div class="product-footer">
-                  <a href="https://wa.me/5511999999999?text=Interesse: LC Turbo 70Ah" class="product-link" target="_blank">Ver preço →</a>
-                  <a href="https://wa.me/5511999999999?text=Quero comprar: LC Turbo 70Ah" class="btn btn-primary" style="padding:8px 16px;font-size:13px;" target="_blank" rel="noopener">Comprar</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="product-card" data-category="automovel">
-              <div class="product-img">
-                <div class="product-img-placeholder"><svg width="70" height="70" viewBox="0 0 24 24" fill="#0057B8" opacity="0.35"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
-                <div class="product-badge"><span class="badge badge-blue">AGM</span></div>
-              </div>
-              <div class="product-info">
-                <div class="product-category">Automóvel</div>
-                <div class="product-name">LC AGM Stop/Start 60Ah</div>
-                <div class="product-specs">
-                  <span class="product-spec">⚡ 60 Ah</span>
-                  <span class="product-spec">🔋 680 A</span>
-                  <span class="product-spec">🛡️ 3 anos</span>
-                </div>
-                <div class="product-footer">
-                  <a href="https://wa.me/5511999999999?text=Interesse: LC AGM Stop/Start 60Ah" class="product-link" target="_blank">Ver preço →</a>
-                  <a href="https://wa.me/5511999999999?text=Quero comprar: LC AGM Stop/Start 60Ah" class="btn btn-primary" style="padding:8px 16px;font-size:13px;" target="_blank" rel="noopener">Comprar</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="product-card" data-category="moto">
-              <div class="product-img">
-                <div class="product-img-placeholder"><svg width="70" height="70" viewBox="0 0 24 24" fill="#0057B8" opacity="0.35"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
-                <div class="product-badge"><span class="badge badge-green">Oferta</span></div>
-              </div>
-              <div class="product-info">
-                <div class="product-category">Moto</div>
-                <div class="product-name">LC Moto 5Ah</div>
-                <div class="product-specs">
-                  <span class="product-spec">⚡ 5 Ah</span>
-                  <span class="product-spec">🔋 70 A</span>
-                  <span class="product-spec">🛡️ 1 ano</span>
-                </div>
-                <div class="product-footer">
-                  <a href="https://wa.me/5511999999999?text=Interesse: LC Moto 5Ah" class="product-link" target="_blank">Ver preço →</a>
-                  <a href="https://wa.me/5511999999999?text=Quero comprar: LC Moto 5Ah" class="btn btn-primary" style="padding:8px 16px;font-size:13px;" target="_blank" rel="noopener">Comprar</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="product-card" data-category="moto">
-              <div class="product-img">
-                <div class="product-img-placeholder"><svg width="70" height="70" viewBox="0 0 24 24" fill="#0057B8" opacity="0.35"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
-              </div>
-              <div class="product-info">
-                <div class="product-category">Moto</div>
-                <div class="product-name">LC Moto Sport 8Ah</div>
-                <div class="product-specs">
-                  <span class="product-spec">⚡ 8 Ah</span>
-                  <span class="product-spec">🔋 120 A</span>
-                  <span class="product-spec">🛡️ 1 ano</span>
-                </div>
-                <div class="product-footer">
-                  <a href="https://wa.me/5511999999999?text=Interesse: LC Moto Sport 8Ah" class="product-link" target="_blank">Ver preço →</a>
-                  <a href="https://wa.me/5511999999999?text=Quero comprar: LC Moto Sport 8Ah" class="btn btn-primary" style="padding:8px 16px;font-size:13px;" target="_blank" rel="noopener">Comprar</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="product-card" data-category="caminhao">
-              <div class="product-img">
-                <div class="product-img-placeholder"><svg width="70" height="70" viewBox="0 0 24 24" fill="#0057B8" opacity="0.35"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
-              </div>
-              <div class="product-info">
-                <div class="product-category">Caminhão</div>
-                <div class="product-name">LC Heavy 100Ah</div>
-                <div class="product-specs">
-                  <span class="product-spec">⚡ 100 Ah</span>
-                  <span class="product-spec">🔋 700 A</span>
-                  <span class="product-spec">🛡️ 2 anos</span>
-                </div>
-                <div class="product-footer">
-                  <a href="https://wa.me/5511999999999?text=Interesse: LC Heavy 100Ah" class="product-link" target="_blank">Ver preço →</a>
-                  <a href="https://wa.me/5511999999999?text=Quero comprar: LC Heavy 100Ah" class="btn btn-primary" style="padding:8px 16px;font-size:13px;" target="_blank" rel="noopener">Comprar</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="product-card" data-category="caminhao">
-              <div class="product-img">
-                <div class="product-img-placeholder"><svg width="70" height="70" viewBox="0 0 24 24" fill="#0057B8" opacity="0.35"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
-              </div>
-              <div class="product-info">
-                <div class="product-category">Caminhão</div>
-                <div class="product-name">LC Heavy 150Ah</div>
-                <div class="product-specs">
-                  <span class="product-spec">⚡ 150 Ah</span>
-                  <span class="product-spec">🔋 900 A</span>
-                  <span class="product-spec">🛡️ 2 anos</span>
-                </div>
-                <div class="product-footer">
-                  <a href="https://wa.me/5511999999999?text=Interesse: LC Heavy 150Ah" class="product-link" target="_blank">Ver preço →</a>
-                  <a href="https://wa.me/5511999999999?text=Quero comprar: LC Heavy 150Ah" class="btn btn-primary" style="padding:8px 16px;font-size:13px;" target="_blank" rel="noopener">Comprar</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="product-card" data-category="industrial">
-              <div class="product-img">
-                <div class="product-img-placeholder"><svg width="70" height="70" viewBox="0 0 24 24" fill="#0057B8" opacity="0.35"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
-                <div class="product-badge"><span class="badge badge-blue">Industrial</span></div>
-              </div>
-              <div class="product-info">
-                <div class="product-category">Industrial</div>
-                <div class="product-name">LC Industrial 200Ah</div>
-                <div class="product-specs">
-                  <span class="product-spec">⚡ 200 Ah</span>
-                  <span class="product-spec">12V</span>
-                  <span class="product-spec">🛡️ 3 anos</span>
-                </div>
-                <div class="product-footer">
-                  <a href="https://wa.me/5511999999999?text=Interesse: Industrial 200Ah" class="product-link" target="_blank">Ver preço →</a>
-                  <a href="https://wa.me/5511999999999?text=Quero comprar: LC Industrial 200Ah" class="btn btn-primary" style="padding:8px 16px;font-size:13px;" target="_blank" rel="noopener">Comprar</a>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
+
+        <div class="marca-card">
+          <div class="marca-header" style="background:linear-gradient(135deg,#1a1a1a,#3a3a3a);">
+            <span class="marca-name">TARGET</span>
+          </div>
+          <div class="marca-body">
+            <div class="marca-title">Target Baterias</div>
+            <div class="marca-desc">Linha completa de baterias com excelente relação custo-benefício para os mais variados segmentos do mercado de reposição automotivo e industrial.</div>
+            <div class="marca-tags">
+              <span class="marca-tag">Automotivo</span>
+              <span class="marca-tag">Moto</span>
+              <span class="marca-tag">Pesados</span>
+              <span class="marca-tag">Industrial</span>
+              <span class="marca-tag">Náutico</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="marca-card">
+          <div class="marca-header" style="background:linear-gradient(135deg,#C8102E,#9B0C22);">
+            <span class="marca-name">HELIAR</span>
+          </div>
+          <div class="marca-body">
+            <div class="marca-title">Heliar (Grupo Bosch)</div>
+            <div class="marca-desc">Uma das marcas mais reconhecidas do Brasil, parte do Grupo Bosch. Tecnologia de ponta, alto desempenho e presente nas principais montadoras. Disponível nas unidades BA e TO.</div>
+            <div class="marca-tags">
+              <span class="marca-tag">Automotivo</span>
+              <span class="marca-tag">Moto</span>
+              <span class="marca-tag">Pesados</span>
+              <span class="marca-tag">AGM / Stop-Start</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:20px;padding:16px 24px;background:#fff;border-radius:var(--radius);border:1px solid var(--border);display:flex;align-items:center;gap:12px;">
+        <i class="fa-solid fa-circle-info" style="font-size:20px;color:var(--primary);flex-shrink:0;"></i>
+        <p style="font-size:14px;color:var(--text-gray);margin:0;">A disponibilidade de marcas varia por unidade. Consulte a página <a href="unidades.html" style="color:var(--primary);font-weight:600;">Nossas Unidades</a> para ver quais marcas estão disponíveis em cada filial.</p>
       </div>
     </div>
   </section>
@@ -447,7 +313,7 @@
   <!-- WHATSAPP FLOAT -->
   <div class="whatsapp-float">
     <div class="whatsapp-bubble">Precisa de ajuda?</div>
-    <a href="https://wa.me/5511999999999" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <a href="https://wa.me/556133564004" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
       <svg viewBox="0 0 24 24"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
   </div>
