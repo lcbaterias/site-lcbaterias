@@ -124,16 +124,16 @@
       </div>
 
       <div class="state-filters">
-        <button class="state-btn active">Todos</button>
-        <button class="state-btn">Distrito Federal (DF)</button>
-        <button class="state-btn">Goiás (GO)</button>
-        <button class="state-btn">Bahia (BA)</button>
-        <button class="state-btn">Tocantins (TO)</button>
+        <button class="state-btn active" data-state="all">Todos</button>
+        <button class="state-btn" data-state="DF">Distrito Federal (DF)</button>
+        <button class="state-btn" data-state="GO">Goiás (GO)</button>
+        <button class="state-btn" data-state="BA">Bahia (BA)</button>
+        <button class="state-btn" data-state="TO">Tocantins (TO)</button>
       </div>
 
       <div class="units-grid">
 
-        <div class="unit-card">
+        <div class="unit-card" data-state="DF">
           <div class="unit-map unit-photo"><img src="assets/images/lcbaterias-brasilia.png" alt="LC Baterias Brasília"></div>
           <div class="unit-body">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
@@ -154,7 +154,7 @@
           </div>
         </div>
 
-        <div class="unit-card">
+        <div class="unit-card" data-state="GO">
           <div class="unit-map unit-photo"><img src="assets/images/lcbaterias-goiania.png" alt="LC Baterias Goiânia"></div>
           <div class="unit-body">
             <div class="unit-name">LC Baterias – Goiânia</div>
@@ -172,7 +172,7 @@
           </div>
         </div>
 
-        <div class="unit-card">
+        <div class="unit-card" data-state="BA">
           <div class="unit-map unit-photo"><img src="assets/images/lcbaterias-barreiras.jpg" alt="LC Baterias Barreiras"></div>
           <div class="unit-body">
             <div class="unit-name">LC Baterias – Barreiras</div>
@@ -191,7 +191,7 @@
           </div>
         </div>
 
-        <div class="unit-card">
+        <div class="unit-card" data-state="BA">
           <div class="unit-map unit-photo"><img src="assets/images/lcbaterias-salvador.png" alt="LC Baterias Salvador"></div>
           <div class="unit-body">
             <div class="unit-name">LC Baterias – Salvador</div>
@@ -210,7 +210,7 @@
           </div>
         </div>
 
-        <div class="unit-card">
+        <div class="unit-card" data-state="TO">
           <div class="unit-map unit-photo"><img src="assets/images/lcbaterias-palmas.png" alt="LC Baterias Palmas"></div>
           <div class="unit-body">
             <div class="unit-name">LC Baterias – Palmas</div>
@@ -261,5 +261,19 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script>
+    const stateBtns = document.querySelectorAll('.state-btn[data-state]');
+    const unitCards = document.querySelectorAll('.unit-card[data-state]');
+    stateBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        stateBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const state = btn.dataset.state;
+        unitCards.forEach(card => {
+          card.style.display = (state === 'all' || card.dataset.state === state) ? '' : 'none';
+        });
+      });
+    });
+  </script>
 </body>
 </html>
