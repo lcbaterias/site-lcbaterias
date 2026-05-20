@@ -65,7 +65,7 @@
   <script>
     // Redireciona se já estiver logado
     db.auth.getSession().then(({ data: { session } }) => {
-      if (session) location.href = 'dashboard.html';
+      if (session) location.href = '/admin/dashboard.html';
     });
 
     document.getElementById('login-form').addEventListener('submit', async function(e) {
@@ -88,7 +88,7 @@
         btn.disabled = false;
         text.textContent = 'Entrar';
       } else {
-        location.href = 'dashboard.html';
+        location.href = '/admin/dashboard.html';
       }
     });
   </script>

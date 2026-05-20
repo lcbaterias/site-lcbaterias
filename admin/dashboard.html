@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -137,7 +137,7 @@ const CAT_COLORS = {manutencao:'blue',tecnologia:'cyan',sustentabilidade:'green'
 
 async function init() {
   const { data: { session } } = await db.auth.getSession();
-  if (!session) { location.href = 'index.html'; return; }
+  if (!session) { location.href = '/admin/index.html'; return; }
   document.getElementById('user-email').textContent = session.user.email;
 
   const [pontos, posts, banners] = await Promise.all([
@@ -199,7 +199,7 @@ async function init() {
 
 document.getElementById('btn-logout').addEventListener('click', async () => {
   await db.auth.signOut();
-  location.href = 'index.html';
+  location.href = '/admin/index.html';
 });
 
 init();
