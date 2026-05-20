@@ -640,25 +640,28 @@
       if (!slider || !dotsWrap) return;
 
       // Gera slides
-      slider.innerHTML = data.map((b, i) => `
-        <div class="hero-slide hero-slide-${i+1} ${i===0?'active':''}">
+      slider.innerHTML = data.map((b, i) => {
+        const ovl = b.overlay_css || 'linear-gradient(to right, rgba(0,15,60,0.97) 0%, rgba(0,25,80,0.92) 40%, rgba(0,25,80,0.55) 65%, rgba(0,25,80,0.15) 100%)';
+        const bg  = b.imagem_url
+          ? `${ovl}, url('${b.imagem_url}') center/cover no-repeat`
+          : ovl;
+        return `
+        <div class="hero-slide ${i===0?'active':''}" style="background:${bg}">
           <div class="container">
             <div class="hero-content">
               <div class="hero-text">
                 <span class="hero-tag"><i class="fa-solid ${b.tag_icon||'fa-bolt'}"></i> ${b.tag||''}</span>
-                <h1 class="hero-title">${b.titulo}${b.titulo_destaque?`<br><span>${b.titulo_destaque}</span>`:''}${b.titulo&&b.titulo_destaque?'':''}</h1>
+                <h1 class="hero-title">${b.titulo}${b.titulo_destaque?`<br><span>${b.titulo_destaque}</span>`:''}</h1>
                 <p class="hero-desc">${b.subtitulo||''}</p>
                 <div class="hero-buttons">
                   ${b.btn1_texto ? `<a href="${b.btn1_link||'#'}" class="btn btn-white" target="${b.btn1_target||'_self'}" ${b.btn1_target==='_blank'?'rel="noopener"':''}>${b.btn1_texto}</a>` : ''}
                   ${b.btn2_texto ? `<a href="${b.btn2_link||'#'}" class="btn btn-outline-white" target="${b.btn2_target||'_self'}" ${b.btn2_target==='_blank'?'rel="noopener"':''}>${b.btn2_texto}</a>` : ''}
                 </div>
               </div>
-              <div class="hero-image"><div class="hero-img-placeholder">
-                <svg width="120" height="120" viewBox="0 0 24 24" fill="white"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm0-4h-2V9h2v5z"/></svg>
-              </div></div>
             </div>
           </div>
-        </div>`).join('');
+        </div>`;
+      }).join('');
 
       // Gera dots
       dotsWrap.innerHTML = data.map((_, i) =>

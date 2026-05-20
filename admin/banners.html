@@ -158,6 +158,23 @@
         </div>
       </div>
       <hr class="form-sep">
+      <p style="font-size:12px;font-weight:700;color:#64748b;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">Imagem de fundo</p>
+      <div class="form-group">
+        <label>URL da imagem</label>
+        <input type="text" id="f-imagem" class="form-control" placeholder="/assets/images/hero-banner-1.jpg ou https://..." oninput="updatePreview()">
+        <small style="color:#94a3b8;font-size:11px;margin-top:4px;display:block">Caminho relativo à raiz do site ou URL completa. Deixe em branco para usar somente cor.</small>
+      </div>
+      <div class="form-group">
+        <label>Cor de fundo / overlay</label>
+        <select id="f-overlay" class="form-control" title="Cor de fundo do banner" onchange="updatePreview()">
+          <option value="linear-gradient(to right, rgba(0,15,60,0.97) 0%, rgba(0,25,80,0.92) 40%, rgba(0,25,80,0.55) 65%, rgba(0,25,80,0.15) 100%)">Azul escuro (padrão)</option>
+          <option value="linear-gradient(to right, rgba(60,0,8,0.97) 0%, rgba(100,0,15,0.92) 40%, rgba(100,0,15,0.55) 65%, rgba(100,0,15,0.15) 100%)">Vermelho escuro</option>
+          <option value="linear-gradient(to right, rgba(0,10,40,0.97) 0%, rgba(0,20,65,0.92) 40%, rgba(0,20,65,0.55) 65%, rgba(0,20,65,0.15) 100%)">Azul navy</option>
+          <option value="linear-gradient(to right, rgba(0,30,10,0.97) 0%, rgba(0,60,20,0.92) 40%, rgba(0,60,20,0.55) 65%, rgba(0,60,20,0.15) 100%)">Verde escuro</option>
+          <option value="linear-gradient(to right, rgba(0,0,0,0.97) 0%, rgba(20,20,20,0.92) 40%, rgba(20,20,20,0.55) 65%, rgba(20,20,20,0.15) 100%)">Preto</option>
+        </select>
+      </div>
+      <hr class="form-sep">
       <div class="form-row">
         <div class="form-group">
           <label>Ordem (1 = primeiro)</label>
@@ -221,20 +238,29 @@ function updatePreview() {
   const sub      = document.getElementById('f-sub').value      || 'Subtítulo descritivo.';
   const btn1     = document.getElementById('f-btn1t').value    || 'Botão 1';
   const btn2     = document.getElementById('f-btn2t').value    || 'Botão 2';
+  const overlay  = document.getElementById('f-overlay').value;
+  const imagem   = document.getElementById('f-imagem').value.trim();
   document.getElementById('prev-tag').textContent     = tag;
   document.getElementById('prev-titulo').innerHTML    = `${titulo} <em id="prev-destaque">${destaque}</em>`;
   document.getElementById('prev-sub').textContent     = sub;
   document.getElementById('prev-btn1').textContent    = btn1;
   document.getElementById('prev-btn2').textContent    = btn2;
+  const prev = document.getElementById('banner-preview');
+  if (prev) {
+    prev.style.background = imagem
+      ? `${overlay}, url('${imagem}') center/cover no-repeat`
+      : overlay;
+  }
 }
 
 function resetForm() {
   editingId = null;
-  ['f-id','f-tag','f-titulo','f-destaque','f-sub','f-btn1t','f-btn1l','f-btn2t','f-btn2l'].forEach(id => {
+  ['f-id','f-tag','f-titulo','f-destaque','f-sub','f-btn1t','f-btn1l','f-btn2t','f-btn2l','f-imagem'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
   document.getElementById('f-tag-icon').value = 'fa-bolt';
+  document.getElementById('f-overlay').selectedIndex = 0;
   document.getElementById('f-ordem').value    = '0';
   document.getElementById('f-ativo').checked  = true;
   updatePreview();
@@ -287,6 +313,14 @@ async function editBanner(id) {
   document.getElementById('f-btn1l').value    = data.btn1_link || '';
   document.getElementById('f-btn2t').value    = data.btn2_texto || '';
   document.getElementById('f-btn2l').value    = data.btn2_link || '';
+  document.getElementById('f-imagem').value   = data.imagem_url || '';
+  const overlayEl = document.getElementById('f-overlay');
+  if (data.overlay_css) {
+    const opt = Array.from(overlayEl.options).find(o => o.value === data.overlay_css);
+    overlayEl.selectedIndex = opt ? Array.from(overlayEl.options).indexOf(opt) : 0;
+  } else {
+    overlayEl.selectedIndex = 0;
+  }
   document.getElementById('f-ordem').value    = data.ordem || 0;
   document.getElementById('f-ativo').checked  = !!data.ativo;
   updatePreview();
@@ -327,6 +361,8 @@ document.getElementById('btn-save').addEventListener('click', async () => {
     btn1_link:       document.getElementById('f-btn1l').value.trim() || null,
     btn2_texto:      document.getElementById('f-btn2t').value.trim() || null,
     btn2_link:       document.getElementById('f-btn2l').value.trim() || null,
+    imagem_url:      document.getElementById('f-imagem').value.trim() || null,
+    overlay_css:     document.getElementById('f-overlay').value || null,
     ordem:           parseInt(document.getElementById('f-ordem').value) || 0,
     ativo:           document.getElementById('f-ativo').checked
   };
