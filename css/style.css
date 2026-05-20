@@ -1775,17 +1775,15 @@ ul {
 }
 
 .tech-mockup {
-  background: #0a1628;
-  border-radius: 20px;
+  background: transparent;
+  border-radius: 0;
   padding: 0;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.35);
-  overflow: hidden;
+  box-shadow: none;
+  overflow: visible;
 }
 .tech-mockup img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
+  height: auto;
   display: block;
 }
 
