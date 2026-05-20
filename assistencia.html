@@ -648,19 +648,17 @@
 
     function makeIcon(active) {
       const color = active ? '#C8102E' : '#0057B8';
-      const scale = active ? 1.15 : 1;
+      const w = active ? 38 : 30;
+      const h = active ? 52 : 41;
       return L.divIcon({
         className: '',
-        html: `<div style="position:relative;width:${Math.round(36*scale)}px;height:${Math.round(42*scale)}px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))">
-          <svg viewBox="0 0 36 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 0C8.06 0 0 8.06 0 18c0 13.5 18 42 18 42s18-28.5 18-42C36 8.06 27.94 0 18 0z" fill="${color}"/>
-            <circle cx="18" cy="18" r="8" fill="white" opacity="0.95"/>
-            <circle cx="18" cy="18" r="4" fill="${color}"/>
-          </svg>
-        </div>`,
-        iconSize: [Math.round(36*scale), Math.round(42*scale)],
-        iconAnchor: [Math.round(18*scale), Math.round(42*scale)],
-        popupAnchor: [0, -Math.round(42*scale)]
+        html: `<svg width="${w}" height="${h}" viewBox="0 0 30 41" fill="none" style="filter:drop-shadow(0 4px 8px rgba(0,0,0,.30))">
+          <path d="M15 0C6.716 0 0 6.716 0 15c0 11.046 13.5 25.5 14.15 26.22a1.1 1.1 0 001.7 0C16.5 40.5 30 26.046 30 15 30 6.716 23.284 0 15 0z" fill="${color}"/>
+          <circle cx="15" cy="15" r="6" fill="white"/>
+        </svg>`,
+        iconSize: [w, h],
+        iconAnchor: [w / 2, h],
+        popupAnchor: [0, -h]
       });
     }
 
