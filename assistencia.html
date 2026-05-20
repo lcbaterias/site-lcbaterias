@@ -668,7 +668,7 @@
         <div class="map-popup-name">${p.nome}</div>
         <div class="map-popup-addr">${p.endereco}</div>
         <div class="map-popup-hours"><i class="fa-solid fa-clock" style="margin-right:4px;opacity:.6;"></i>${p.horario}</div>
-        <a href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}" target="_blank" rel="noopener" class="map-popup-btn">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(p.endereco)}" target="_blank" rel="noopener" class="map-popup-btn">
           <i class="fa-solid fa-route"></i> Como Chegar
         </a>
       </div>`;
@@ -742,7 +742,7 @@
             <div class="card-info-row"><i class="fa-solid fa-clock"></i> ${p.horario}</div>
           </div>
           <div class="card-actions">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}" target="_blank" rel="noopener" class="card-action-btn btn-rota">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(p.endereco)}" target="_blank" rel="noopener" class="card-action-btn btn-rota">
               <i class="fa-solid fa-route"></i> Como Chegar
             </a>
             <a href="https://wa.me/${p.whatsapp}?text=Olá! Vim pelo site da LC Baterias e gostaria de ajuda." target="_blank" rel="noopener" class="card-action-btn btn-zap">
