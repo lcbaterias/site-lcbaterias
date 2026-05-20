@@ -3,8 +3,8 @@
 // Preencha com as credenciais do seu projeto em:
 // https://supabase.com/dashboard → Project Settings → API
 // ================================================================
-const SUPABASE_URL  = 'https://SEU_PROJETO_ID.supabase.co';
-const SUPABASE_ANON_KEY = 'SUA_CHAVE_ANON_PUBLICA';
+const SUPABASE_URL  = 'https://sahbhaokyjrzbalddjta.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhaGJoYW9reWpyemJhbGRkanRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyMDcyMjMsImV4cCI6MjA5NDc4MzIyM30.gXlmDPBtN6F8RDyEfTLJuh3SrbOzjtNxjt7LGZ9Pw0w';
 
 // Inicializa o cliente (o script do Supabase deve ser carregado antes deste arquivo)
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
