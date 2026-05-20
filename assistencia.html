@@ -762,14 +762,18 @@
     // ===== FILTROS =====
     let heroSearchVal = '';
 
+    function norm(str) {
+      return str.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+    }
+
     function getFiltered() {
-      const nome = (document.getElementById('f-nome').value + heroSearchVal).toLowerCase().trim();
-      const cidade = document.getElementById('f-cidade').value.toLowerCase().trim();
+      const nome = norm(document.getElementById('f-nome').value + heroSearchVal);
+      const cidade = norm(document.getElementById('f-cidade').value);
       const estado = document.getElementById('f-estado').value;
 
       return PONTOS.filter(p => {
-        const matchNome = !nome || p.nome.toLowerCase().includes(nome) || p.cidade.toLowerCase().includes(nome) || p.estado.toLowerCase().includes(nome);
-        const matchCidade = !cidade || p.cidade.toLowerCase().includes(cidade);
+        const matchNome = !nome || norm(p.nome).includes(nome) || norm(p.cidade).includes(nome) || norm(p.estado).includes(nome);
+        const matchCidade = !cidade || norm(p.cidade).includes(cidade);
         const matchEstado = !estado || p.estado === estado;
         return matchNome && matchCidade && matchEstado;
       });
