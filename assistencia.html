@@ -528,11 +528,13 @@
     </a>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/main.js"></script>
   <script>
-    // ===== DADOS =====
-    const PONTOS = [
+    // ===== DADOS (fallback estático enquanto Supabase não responde) =====
+    let PONTOS = [
       {
         id: 1,
         nome: "LC Baterias – Brasília",
@@ -838,7 +840,32 @@
     }
 
     // ===== INIT =====
-    window.addEventListener('load', () => {
+    window.addEventListener('load', async () => {
+      // Tenta carregar pontos do Supabase, usa estático como fallback
+      if (typeof db !== 'undefined') {
+        try {
+          const { data } = await db.from('pontos_assistencia')
+            .select('*').eq('ativo', true).order('criado_em');
+          if (data && data.length > 0) {
+            PONTOS = data.map(p => ({
+              id: p.id, nome: p.nome, cidade: p.cidade, estado: p.estado,
+              endereco: p.endereco, telefone: p.telefone || '',
+              whatsapp: p.whatsapp || '',
+              horario: p.horario || 'Seg–Sex: 8h–18h | Sáb: 8h–12h',
+              sede: p.sede || false, lat: p.lat, lng: p.lng
+            }));
+            // Atualiza contador do hero
+            const numEl = document.querySelector('.hero-counter-num');
+            if (numEl) numEl.innerHTML = PONTOS.length + '<span>+</span>';
+            // Atualiza opções de estado dinamicamente
+            const estados = [...new Set(PONTOS.map(p => p.estado))].sort();
+            document.getElementById('f-estado').innerHTML =
+              '<option value="">Todos os estados</option>' +
+              estados.map(e => `<option value="${e}">${e}</option>`).join('');
+          }
+        } catch(e) { /* usa dados estáticos */ }
+      }
+
       renderCards(PONTOS);
       setTimeout(initMap, 150);
 

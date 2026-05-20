@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard – Admin LC Baterias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="admin-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../assets/icons/logo.png" alt="LC Baterias">
+      <div class="sidebar-logo-text">Painel Admin</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Menu</div>
+      <a href="dashboard.html" class="nav-item active"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a href="pontos.html"    class="nav-item"><i class="fa-solid fa-map-location-dot"></i> Pontos de Assistência</a>
+      <a href="blog.html"      class="nav-item"><i class="fa-solid fa-newspaper"></i> Blog</a>
+      <a href="banners.html"   class="nav-item"><i class="fa-solid fa-images"></i> Banners</a>
+      <div class="nav-section" style="margin-top:8px">Site</div>
+      <a href="../index.html" target="_blank" class="nav-item"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver site</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="user-email"></div>
+      <button class="btn-logout" id="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <h1>Dashboard</h1>
+        <p>Visão geral do conteúdo do site</p>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fa-solid fa-map-location-dot"></i></div>
+          <div>
+            <div class="stat-num" id="count-pontos">—</div>
+            <div class="stat-label">Pontos de Assistência</div>
+            <div class="stat-sub" id="count-pontos-ativos"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fa-solid fa-newspaper"></i></div>
+          <div>
+            <div class="stat-num" id="count-posts">—</div>
+            <div class="stat-label">Posts do Blog</div>
+            <div class="stat-sub" id="count-posts-pub"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange"><i class="fa-solid fa-images"></i></div>
+          <div>
+            <div class="stat-num" id="count-banners">—</div>
+            <div class="stat-label">Banners da Home</div>
+            <div class="stat-sub" id="count-banners-ativos"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÚLTIMOS POSTS -->
+      <div class="table-card">
+        <div class="table-card-head">
+          <div>
+            <h3>Últimos Posts</h3>
+            <p>Posts mais recentes do blog</p>
+          </div>
+          <a href="blog.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Novo Post</a>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Status</th>
+                <th>Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tb-posts">
+              <tr><td colspan="5" class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Carregando...</p></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ÚLTIMOS PONTOS -->
+      <div class="table-card">
+        <div class="table-card-head">
+          <div>
+            <h3>Pontos de Assistência</h3>
+            <p>Parceiros cadastrados no sistema</p>
+          </div>
+          <a href="pontos.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Novo Ponto</a>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Cidade / UF</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tb-pontos">
+              <tr><td colspan="4" class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Carregando...</p></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toasts"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-config.js"></script>
+<script>
+const CAT_COLORS = {manutencao:'blue',tecnologia:'cyan',sustentabilidade:'green',dicas:'orange',frotas:'purple',outros:'gray'};
+
+async function init() {
+  const { data: { session } } = await db.auth.getSession();
+  if (!session) { location.href = 'index.html'; return; }
+  document.getElementById('user-email').textContent = session.user.email;
+
+  const [pontos, posts, banners] = await Promise.all([
+    db.from('pontos_assistencia').select('id,ativo').order('criado_em'),
+    db.from('posts').select('id,titulo,categoria,publicado,criado_em').order('criado_em', {ascending:false}).limit(10),
+    db.from('banners').select('id,ativo').order('ordem')
+  ]);
+
+  // Stat cards
+  const pontosData  = pontos.data  || [];
+  const postsData   = posts.data   || [];
+  const bannersData = banners.data || [];
+
+  document.getElementById('count-pontos').textContent  = pontosData.length;
+  document.getElementById('count-posts').textContent   = postsData.length;
+  document.getElementById('count-banners').textContent = bannersData.length;
+
+  const pontosAtivos  = pontosData.filter(p=>p.ativo).length;
+  const postsPub      = postsData.filter(p=>p.publicado).length;
+  const bannersAtivos = bannersData.filter(b=>b.ativo).length;
+
+  document.getElementById('count-pontos-ativos').textContent  = `${pontosAtivos} ativos`;
+  document.getElementById('count-posts-pub').textContent       = `${postsPub} publicados`;
+  document.getElementById('count-banners-ativos').textContent  = `${bannersAtivos} ativos`;
+
+  // Posts table
+  const tbPosts = document.getElementById('tb-posts');
+  if (!postsData.length) {
+    tbPosts.innerHTML = '<tr><td colspan="5"><div class="empty-state"><i class="fa-solid fa-newspaper"></i><p>Nenhum post ainda.</p></div></td></tr>';
+  } else {
+    tbPosts.innerHTML = postsData.map(p => {
+      const cat   = p.categoria || 'outros';
+      const color = CAT_COLORS[cat] || 'gray';
+      const data  = new Date(p.criado_em).toLocaleDateString('pt-BR');
+      return `<tr>
+        <td style="font-weight:600;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.titulo}</td>
+        <td><span class="badge badge-${color}">${p.categoria}</span></td>
+        <td>${p.publicado ? '<span class="badge badge-green">Publicado</span>' : '<span class="badge badge-gray">Rascunho</span>'}</td>
+        <td style="color:#94a3b8">${data}</td>
+        <td><a href="blog.html" class="btn btn-edit btn-xs"><i class="fa-solid fa-pen"></i></a></td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Pontos table
+  const tbPontos = document.getElementById('tb-pontos');
+  const { data: pontosAll } = await db.from('pontos_assistencia').select('id,nome,cidade,estado,ativo').order('criado_em',{ascending:false}).limit(8);
+  if (!pontosAll || !pontosAll.length) {
+    tbPontos.innerHTML = '<tr><td colspan="4"><div class="empty-state"><i class="fa-solid fa-map-location-dot"></i><p>Nenhum ponto cadastrado.</p></div></td></tr>';
+  } else {
+    tbPontos.innerHTML = pontosAll.map(p => `<tr>
+      <td style="font-weight:600">${p.nome}</td>
+      <td>${p.cidade} / ${p.estado}</td>
+      <td>${p.ativo ? '<span class="badge badge-green">Ativo</span>' : '<span class="badge badge-gray">Inativo</span>'}</td>
+      <td><a href="pontos.html" class="btn btn-edit btn-xs"><i class="fa-solid fa-pen"></i></a></td>
+    </tr>`).join('');
+  }
+}
+
+document.getElementById('btn-logout').addEventListener('click', async () => {
+  await db.auth.signOut();
+  location.href = 'index.html';
+});
+
+init();
+</script>
+</body>
+</html>

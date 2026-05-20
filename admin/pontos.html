@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pontos de Assistência – Admin LC Baterias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="admin-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../assets/icons/logo.png" alt="LC Baterias">
+      <div class="sidebar-logo-text">Painel Admin</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Menu</div>
+      <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a href="pontos.html"    class="nav-item active"><i class="fa-solid fa-map-location-dot"></i> Pontos de Assistência</a>
+      <a href="blog.html"      class="nav-item"><i class="fa-solid fa-newspaper"></i> Blog</a>
+      <a href="banners.html"   class="nav-item"><i class="fa-solid fa-images"></i> Banners</a>
+      <div class="nav-section" style="margin-top:8px">Site</div>
+      <a href="../index.html" target="_blank" class="nav-item"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver site</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="user-email"></div>
+      <button class="btn-logout" id="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <h1>Pontos de Assistência</h1>
+        <p>Gerencie os pontos parceiros que aparecem na página de Assistência</p>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-primary" id="btn-novo"><i class="fa-solid fa-plus"></i> Novo Ponto</button>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="table-card">
+        <div class="table-card-head">
+          <div>
+            <h3>Todos os Pontos</h3>
+            <p id="total-label">Carregando...</p>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Cidade / UF</th>
+                <th>Telefone</th>
+                <th>Sede</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tb-pontos"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ADD/EDIT -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modal-title">Novo Ponto</h2>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="f-id">
+      <div class="form-row">
+        <div class="form-group" style="grid-column:1/-1">
+          <label>Nome do ponto *</label>
+          <input type="text" id="f-nome" class="form-control" placeholder="Ex: LC Baterias – Goiânia" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Cidade *</label>
+          <input type="text" id="f-cidade" class="form-control" placeholder="Brasília">
+        </div>
+        <div class="form-group">
+          <label>Estado (UF) *</label>
+          <select id="f-estado" class="form-control">
+            <option value="">Selecione</option>
+            <option>AC</option><option>AL</option><option>AM</option><option>AP</option>
+            <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+            <option>GO</option><option>MA</option><option>MG</option><option>MS</option>
+            <option>MT</option><option>PA</option><option>PB</option><option>PE</option>
+            <option>PI</option><option>PR</option><option>RJ</option><option>RN</option>
+            <option>RO</option><option>RR</option><option>RS</option><option>SC</option>
+            <option>SE</option><option>SP</option><option>TO</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Endereço completo *</label>
+        <input type="text" id="f-endereco" class="form-control" placeholder="Av. Exemplo, 123, Bairro, Cidade – UF, CEP 00000-000">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Telefone</label>
+          <input type="text" id="f-telefone" class="form-control" placeholder="(61) 3356-4004">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp (só números)</label>
+          <input type="text" id="f-whatsapp" class="form-control" placeholder="556133564004">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Horário de funcionamento</label>
+        <input type="text" id="f-horario" class="form-control" placeholder="Seg-Sex 08h-18h | Sáb 08h-12h">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Latitude</label>
+          <input type="number" id="f-lat" class="form-control" step="any" placeholder="-15.7801">
+          <span class="form-hint">Use <a href="https://maps.google.com" target="_blank" style="color:#0057B8">Google Maps</a> → clique no mapa → copie a lat</span>
+        </div>
+        <div class="form-group">
+          <label>Longitude</label>
+          <input type="number" id="f-lng" class="form-control" step="any" placeholder="-47.9292">
+        </div>
+      </div>
+      <hr class="form-sep">
+      <div class="form-row">
+        <label class="form-check">
+          <input type="checkbox" id="f-sede">
+          <span>Marcar como Sede principal</span>
+        </label>
+        <label class="form-check">
+          <input type="checkbox" id="f-ativo" checked>
+          <span>Ponto ativo (visível no site)</span>
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="btn-cancel">Cancelar</button>
+      <button class="btn btn-primary" id="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
+<div class="modal-overlay" id="del-overlay">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <h2>Excluir Ponto</h2>
+      <button class="modal-close" onclick="closeModal('del-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:#374151">Tem certeza que deseja excluir <strong id="del-nome"></strong>? Essa ação não pode ser desfeita.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('del-overlay')">Cancelar</button>
+      <button class="btn btn-danger" id="btn-confirm-del"><i class="fa-solid fa-trash"></i> Excluir</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toasts"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-config.js"></script>
+<script>
+let editingId = null;
+let deletingId = null;
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function toast(msg, type='success') {
+  const w = document.getElementById('toasts');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="fa-solid ${type==='success'?'fa-circle-check':type==='error'?'fa-circle-xmark':'fa-circle-info'}"></i>${msg}`;
+  w.appendChild(t);
+  setTimeout(() => { t.style.animation='toastOut .3s ease forwards'; setTimeout(()=>t.remove(),300); }, 3000);
+}
+
+function resetForm() {
+  ['f-id','f-nome','f-cidade','f-endereco','f-telefone','f-whatsapp','f-horario','f-lat','f-lng'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('f-estado').value = '';
+  document.getElementById('f-sede').checked = false;
+  document.getElementById('f-ativo').checked = true;
+  editingId = null;
+}
+
+async function loadPontos() {
+  const { data, error } = await db.from('pontos_assistencia').select('*').order('criado_em');
+  if (error) { toast('Erro ao carregar pontos.', 'error'); return; }
+  document.getElementById('total-label').textContent = `${data.length} ponto(s) cadastrado(s)`;
+  const tb = document.getElementById('tb-pontos');
+  if (!data.length) {
+    tb.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-map-location-dot"></i><p>Nenhum ponto cadastrado ainda.</p></div></td></tr>';
+    return;
+  }
+  tb.innerHTML = data.map((p, i) => `
+    <tr>
+      <td style="color:#94a3b8;font-weight:600">${i+1}</td>
+      <td style="font-weight:700">${p.nome}${p.sede ? ' <span class="badge badge-blue" style="font-size:10px;margin-left:4px">Sede</span>' : ''}</td>
+      <td>${p.cidade} / ${p.estado}</td>
+      <td style="color:#64748b">${p.telefone || '—'}</td>
+      <td>${p.sede ? '<i class="fa-solid fa-star" style="color:#f59e0b"></i>' : '<i class="fa-regular fa-star" style="color:#d1d5db"></i>'}</td>
+      <td>
+        <label class="toggle">
+          <input type="checkbox" ${p.ativo ? 'checked' : ''} onchange="toggleAtivo('${p.id}', this.checked)">
+          <span class="toggle-track"></span>
+        </label>
+      </td>
+      <td class="td-actions">
+        <button class="btn btn-edit btn-icon btn-sm" onclick="editPonto('${p.id}')" title="Editar"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn btn-danger btn-icon btn-sm" onclick="confirmDel('${p.id}','${p.nome.replace(/'/g,"\\'")}')"><i class="fa-solid fa-trash"></i></button>
+      </td>
+    </tr>`).join('');
+}
+
+async function toggleAtivo(id, val) {
+  const { error } = await db.from('pontos_assistencia').update({ ativo: val }).eq('id', id);
+  if (error) { toast('Erro ao atualizar.', 'error'); loadPontos(); }
+  else toast(val ? 'Ponto ativado.' : 'Ponto desativado.');
+}
+
+async function editPonto(id) {
+  const { data } = await db.from('pontos_assistencia').select('*').eq('id', id).single();
+  if (!data) return;
+  document.getElementById('f-id').value       = data.id;
+  document.getElementById('f-nome').value      = data.nome || '';
+  document.getElementById('f-cidade').value    = data.cidade || '';
+  document.getElementById('f-estado').value    = data.estado || '';
+  document.getElementById('f-endereco').value  = data.endereco || '';
+  document.getElementById('f-telefone').value  = data.telefone || '';
+  document.getElementById('f-whatsapp').value  = data.whatsapp || '';
+  document.getElementById('f-horario').value   = data.horario || '';
+  document.getElementById('f-lat').value       = data.lat || '';
+  document.getElementById('f-lng').value       = data.lng || '';
+  document.getElementById('f-sede').checked    = !!data.sede;
+  document.getElementById('f-ativo').checked   = !!data.ativo;
+  editingId = id;
+  document.getElementById('modal-title').textContent = 'Editar Ponto';
+  openModal('modal-overlay');
+}
+
+function confirmDel(id, nome) {
+  deletingId = id;
+  document.getElementById('del-nome').textContent = nome;
+  openModal('del-overlay');
+}
+
+document.getElementById('btn-confirm-del').addEventListener('click', async () => {
+  const { error } = await db.from('pontos_assistencia').delete().eq('id', deletingId);
+  closeModal('del-overlay');
+  if (error) toast('Erro ao excluir.', 'error');
+  else { toast('Ponto excluído.'); loadPontos(); }
+});
+
+document.getElementById('btn-novo').addEventListener('click', () => {
+  resetForm();
+  document.getElementById('modal-title').textContent = 'Novo Ponto';
+  openModal('modal-overlay');
+});
+
+document.getElementById('btn-save').addEventListener('click', async () => {
+  const nome     = document.getElementById('f-nome').value.trim();
+  const cidade   = document.getElementById('f-cidade').value.trim();
+  const estado   = document.getElementById('f-estado').value;
+  const endereco = document.getElementById('f-endereco').value.trim();
+  if (!nome || !cidade || !estado || !endereco) { toast('Preencha os campos obrigatórios.', 'error'); return; }
+
+  const payload = {
+    nome, cidade, estado, endereco,
+    telefone:  document.getElementById('f-telefone').value.trim() || null,
+    whatsapp:  document.getElementById('f-whatsapp').value.trim() || null,
+    horario:   document.getElementById('f-horario').value.trim() || 'Seg-Sex 08h-18h | Sáb 08h-12h',
+    lat:       parseFloat(document.getElementById('f-lat').value) || null,
+    lng:       parseFloat(document.getElementById('f-lng').value) || null,
+    sede:      document.getElementById('f-sede').checked,
+    ativo:     document.getElementById('f-ativo').checked
+  };
+
+  const btn = document.getElementById('btn-save');
+  btn.disabled = true; btn.textContent = 'Salvando...';
+
+  let error;
+  if (editingId) {
+    ({ error } = await db.from('pontos_assistencia').update(payload).eq('id', editingId));
+  } else {
+    ({ error } = await db.from('pontos_assistencia').insert(payload));
+  }
+  btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar';
+
+  if (error) { toast('Erro ao salvar: ' + error.message, 'error'); return; }
+  closeModal('modal-overlay');
+  toast(editingId ? 'Ponto atualizado!' : 'Ponto cadastrado!');
+  loadPontos();
+});
+
+document.getElementById('modal-close').addEventListener('click', () => closeModal('modal-overlay'));
+document.getElementById('btn-cancel').addEventListener('click', () => closeModal('modal-overlay'));
+document.getElementById('modal-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('modal-overlay'); });
+document.getElementById('del-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('del-overlay'); });
+
+document.getElementById('btn-logout').addEventListener('click', async () => {
+  await db.auth.signOut(); location.href = 'index.html';
+});
+
+async function init() {
+  const { data: { session } } = await db.auth.getSession();
+  if (!session) { location.href = 'index.html'; return; }
+  document.getElementById('user-email').textContent = session.user.email;
+  loadPontos();
+}
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banners – Admin LC Baterias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    .banner-preview{background:linear-gradient(135deg,#00113a 0%,#003D82 50%,#0057B8 100%);border-radius:12px;padding:28px 32px;color:#fff;margin-bottom:18px;min-height:130px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+    .banner-preview-tag{font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.8px;font-weight:700}
+    .banner-preview-title{font-size:22px;font-weight:800;line-height:1.2}
+    .banner-preview-title em{font-style:normal;background:linear-gradient(90deg,#64B5F6,#90CAF9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .banner-preview-sub{font-size:13px;opacity:.7;max-width:420px;line-height:1.6}
+    .banner-preview-btns{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+    .banner-preview-btn1{background:#fff;color:#003D82;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:700}
+    .banner-preview-btn2{border:2px solid rgba(255,255,255,.5);color:#fff;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:700}
+  </style>
+</head>
+<body>
+<div class="admin-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../assets/icons/logo.png" alt="LC Baterias">
+      <div class="sidebar-logo-text">Painel Admin</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Menu</div>
+      <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a href="pontos.html"    class="nav-item"><i class="fa-solid fa-map-location-dot"></i> Pontos de Assistência</a>
+      <a href="blog.html"      class="nav-item"><i class="fa-solid fa-newspaper"></i> Blog</a>
+      <a href="banners.html"   class="nav-item active"><i class="fa-solid fa-images"></i> Banners</a>
+      <div class="nav-section" style="margin-top:8px">Site</div>
+      <a href="../index.html" target="_blank" class="nav-item"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver site</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="user-email"></div>
+      <button class="btn-logout" id="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <h1>Banners da Home</h1>
+        <p>Gerencie os slides do carrossel na página inicial</p>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-primary" id="btn-novo"><i class="fa-solid fa-plus"></i> Novo Banner</button>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="table-card">
+        <div class="table-card-head">
+          <div>
+            <h3>Todos os Banners</h3>
+            <p id="total-label">Carregando...</p>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Ordem</th>
+                <th>Título</th>
+                <th>Tag</th>
+                <th>Botões</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tb-banners"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ADD/EDIT -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal modal-lg">
+    <div class="modal-head">
+      <h2 id="modal-title">Novo Banner</h2>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="f-id">
+
+      <!-- Pré-visualização -->
+      <div class="banner-preview" id="banner-preview">
+        <div class="banner-preview-tag" id="prev-tag">Tag</div>
+        <div class="banner-preview-title" id="prev-titulo">Título do banner <em id="prev-destaque">em destaque</em></div>
+        <div class="banner-preview-sub" id="prev-sub">Subtítulo descritivo do banner aqui.</div>
+        <div class="banner-preview-btns">
+          <span class="banner-preview-btn1" id="prev-btn1">Botão 1</span>
+          <span class="banner-preview-btn2" id="prev-btn2">Botão 2</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tag (label pequeno)</label>
+          <input type="text" id="f-tag" class="form-control" placeholder="Ex: Distribuidora Regional" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>Ícone da tag</label>
+          <select id="f-tag-icon" class="form-control" onchange="updatePreview()">
+            <option value="fa-bolt">⚡ Bolt</option>
+            <option value="fa-route">🗺 Route</option>
+            <option value="fa-truck">🚚 Truck</option>
+            <option value="fa-star">⭐ Star</option>
+            <option value="fa-fire">🔥 Fire</option>
+            <option value="fa-circle-check">✅ Check</option>
+            <option value="fa-award">🏆 Award</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Título principal *</label>
+          <input type="text" id="f-titulo" class="form-control" placeholder="A energia que mantém" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>Trecho em destaque (azul)</label>
+          <input type="text" id="f-destaque" class="form-control" placeholder="milhares de veículos" oninput="updatePreview()">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Subtítulo</label>
+        <textarea id="f-sub" class="form-control" rows="2" placeholder="Descrição adicional do banner..." oninput="updatePreview()"></textarea>
+      </div>
+      <hr class="form-sep">
+      <p style="font-size:12px;font-weight:700;color:#64748b;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">Botões de ação</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Botão 1 – Texto</label>
+          <input type="text" id="f-btn1t" class="form-control" placeholder="Solicitar Atendimento" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>Botão 1 – Link</label>
+          <input type="text" id="f-btn1l" class="form-control" placeholder="https://wa.me/556133564004">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Botão 2 – Texto</label>
+          <input type="text" id="f-btn2t" class="form-control" placeholder="Encontrar Unidade" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>Botão 2 – Link</label>
+          <input type="text" id="f-btn2l" class="form-control" placeholder="unidades.html">
+        </div>
+      </div>
+      <hr class="form-sep">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Ordem (1 = primeiro)</label>
+          <input type="number" id="f-ordem" class="form-control" min="0" value="0">
+        </div>
+        <div class="form-group" style="display:flex;align-items:flex-end;padding-bottom:14px">
+          <label class="form-check">
+            <input type="checkbox" id="f-ativo" checked>
+            <span>Banner ativo (visível no site)</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="btn-cancel">Cancelar</button>
+      <button class="btn btn-primary" id="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
+<div class="modal-overlay" id="del-overlay">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <h2>Excluir Banner</h2>
+      <button class="modal-close" onclick="closeModal('del-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:#374151">Tem certeza que deseja excluir <strong id="del-titulo"></strong>?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('del-overlay')">Cancelar</button>
+      <button class="btn btn-danger" id="btn-confirm-del"><i class="fa-solid fa-trash"></i> Excluir</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toasts"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-config.js"></script>
+<script>
+let editingId = null;
+let deletingId = null;
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function toast(msg, type='success') {
+  const w = document.getElementById('toasts');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="fa-solid ${type==='success'?'fa-circle-check':type==='error'?'fa-circle-xmark':'fa-circle-info'}"></i>${msg}`;
+  w.appendChild(t);
+  setTimeout(() => { t.style.animation='toastOut .3s ease forwards'; setTimeout(()=>t.remove(),300); }, 3000);
+}
+
+function updatePreview() {
+  const tag      = document.getElementById('f-tag').value      || 'Tag';
+  const titulo   = document.getElementById('f-titulo').value   || 'Título do banner';
+  const destaque = document.getElementById('f-destaque').value || 'em destaque';
+  const sub      = document.getElementById('f-sub').value      || 'Subtítulo descritivo.';
+  const btn1     = document.getElementById('f-btn1t').value    || 'Botão 1';
+  const btn2     = document.getElementById('f-btn2t').value    || 'Botão 2';
+  document.getElementById('prev-tag').textContent     = tag;
+  document.getElementById('prev-titulo').innerHTML    = `${titulo} <em id="prev-destaque">${destaque}</em>`;
+  document.getElementById('prev-sub').textContent     = sub;
+  document.getElementById('prev-btn1').textContent    = btn1;
+  document.getElementById('prev-btn2').textContent    = btn2;
+}
+
+function resetForm() {
+  editingId = null;
+  ['f-id','f-tag','f-titulo','f-destaque','f-sub','f-btn1t','f-btn1l','f-btn2t','f-btn2l'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('f-tag-icon').value = 'fa-bolt';
+  document.getElementById('f-ordem').value    = '0';
+  document.getElementById('f-ativo').checked  = true;
+  updatePreview();
+}
+
+async function loadBanners() {
+  const { data, error } = await db.from('banners').select('*').order('ordem');
+  if (error) { toast('Erro ao carregar banners.', 'error'); return; }
+  document.getElementById('total-label').textContent = `${data.length} banner(s) cadastrado(s)`;
+  const tb = document.getElementById('tb-banners');
+  if (!data.length) {
+    tb.innerHTML = '<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-images"></i><p>Nenhum banner ainda.</p></div></td></tr>';
+    return;
+  }
+  tb.innerHTML = data.map(b => `<tr>
+    <td style="font-weight:700;color:#0057B8">${b.ordem || 0}</td>
+    <td style="font-weight:700;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${b.titulo}">${b.titulo}${b.titulo_destaque ? ` <em style="color:#0057B8;font-style:italic">${b.titulo_destaque}</em>` : ''}</td>
+    <td><span class="badge badge-blue">${b.tag || '—'}</span></td>
+    <td style="color:#64748b;font-size:12px">${[b.btn1_texto, b.btn2_texto].filter(Boolean).join(' / ') || '—'}</td>
+    <td>
+      <label class="toggle">
+        <input type="checkbox" ${b.ativo ? 'checked' : ''} onchange="toggleAtivo('${b.id}', this.checked)">
+        <span class="toggle-track"></span>
+      </label>
+    </td>
+    <td class="td-actions">
+      <button class="btn btn-edit btn-icon btn-sm" onclick="editBanner('${b.id}')"><i class="fa-solid fa-pen"></i></button>
+      <button class="btn btn-danger btn-icon btn-sm" onclick="confirmDel('${b.id}','${b.titulo.replace(/'/g,"\\'").replace(/"/g,'\\"')}')"><i class="fa-solid fa-trash"></i></button>
+    </td>
+  </tr>`).join('');
+}
+
+async function toggleAtivo(id, val) {
+  const { error } = await db.from('banners').update({ ativo: val }).eq('id', id);
+  if (error) { toast('Erro ao atualizar.', 'error'); loadBanners(); }
+  else toast(val ? 'Banner ativado.' : 'Banner desativado.');
+}
+
+async function editBanner(id) {
+  const { data } = await db.from('banners').select('*').eq('id', id).single();
+  if (!data) return;
+  editingId = id;
+  document.getElementById('f-id').value       = data.id;
+  document.getElementById('f-tag').value      = data.tag || '';
+  document.getElementById('f-tag-icon').value = data.tag_icon || 'fa-bolt';
+  document.getElementById('f-titulo').value   = data.titulo || '';
+  document.getElementById('f-destaque').value = data.titulo_destaque || '';
+  document.getElementById('f-sub').value      = data.subtitulo || '';
+  document.getElementById('f-btn1t').value    = data.btn1_texto || '';
+  document.getElementById('f-btn1l').value    = data.btn1_link || '';
+  document.getElementById('f-btn2t').value    = data.btn2_texto || '';
+  document.getElementById('f-btn2l').value    = data.btn2_link || '';
+  document.getElementById('f-ordem').value    = data.ordem || 0;
+  document.getElementById('f-ativo').checked  = !!data.ativo;
+  updatePreview();
+  document.getElementById('modal-title').textContent = 'Editar Banner';
+  openModal('modal-overlay');
+}
+
+function confirmDel(id, titulo) {
+  deletingId = id;
+  document.getElementById('del-titulo').textContent = titulo;
+  openModal('del-overlay');
+}
+
+document.getElementById('btn-confirm-del').addEventListener('click', async () => {
+  const { error } = await db.from('banners').delete().eq('id', deletingId);
+  closeModal('del-overlay');
+  if (error) toast('Erro ao excluir.', 'error');
+  else { toast('Banner excluído.'); loadBanners(); }
+});
+
+document.getElementById('btn-novo').addEventListener('click', () => {
+  resetForm();
+  document.getElementById('modal-title').textContent = 'Novo Banner';
+  openModal('modal-overlay');
+});
+
+document.getElementById('btn-save').addEventListener('click', async () => {
+  const titulo = document.getElementById('f-titulo').value.trim();
+  if (!titulo) { toast('O título é obrigatório.', 'error'); return; }
+
+  const payload = {
+    tag:             document.getElementById('f-tag').value.trim() || null,
+    tag_icon:        document.getElementById('f-tag-icon').value || 'fa-bolt',
+    titulo,
+    titulo_destaque: document.getElementById('f-destaque').value.trim() || null,
+    subtitulo:       document.getElementById('f-sub').value.trim() || null,
+    btn1_texto:      document.getElementById('f-btn1t').value.trim() || null,
+    btn1_link:       document.getElementById('f-btn1l').value.trim() || null,
+    btn2_texto:      document.getElementById('f-btn2t').value.trim() || null,
+    btn2_link:       document.getElementById('f-btn2l').value.trim() || null,
+    ordem:           parseInt(document.getElementById('f-ordem').value) || 0,
+    ativo:           document.getElementById('f-ativo').checked
+  };
+
+  const btn = document.getElementById('btn-save');
+  btn.disabled = true; btn.textContent = 'Salvando...';
+
+  let error;
+  if (editingId) {
+    ({ error } = await db.from('banners').update(payload).eq('id', editingId));
+  } else {
+    ({ error } = await db.from('banners').insert(payload));
+  }
+  btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar';
+
+  if (error) { toast('Erro ao salvar: ' + error.message, 'error'); return; }
+  closeModal('modal-overlay');
+  toast(editingId ? 'Banner atualizado!' : 'Banner criado!');
+  loadBanners();
+});
+
+document.getElementById('modal-close').addEventListener('click', () => closeModal('modal-overlay'));
+document.getElementById('btn-cancel').addEventListener('click', () => closeModal('modal-overlay'));
+document.getElementById('modal-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('modal-overlay'); });
+document.getElementById('del-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('del-overlay'); });
+
+document.getElementById('btn-logout').addEventListener('click', async () => {
+  await db.auth.signOut(); location.href = 'index.html';
+});
+
+async function init() {
+  const { data: { session } } = await db.auth.getSession();
+  if (!session) { location.href = 'index.html'; return; }
+  document.getElementById('user-email').textContent = session.user.email;
+  loadBanners();
+}
+init();
+</script>
+</body>
+</html>

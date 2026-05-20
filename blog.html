@@ -396,6 +396,80 @@
     </a>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
   <script src="js/main.js"></script>
+  <script>
+  (function() {
+    const CAT_COLORS = {manutencao:'badge-blue',tecnologia:'badge-blue',sustentabilidade:'badge-green',dicas:'badge-orange',frotas:'badge-purple',outros:'badge-gray'};
+    const CAT_LABELS = {manutencao:'Manutenção',tecnologia:'Tecnologia',sustentabilidade:'Sustentabilidade',dicas:'Dicas',frotas:'Frotas',outros:'Outros'};
+    const CAT_GRADS  = {
+      manutencao:'linear-gradient(135deg,#003D82,#0057B8)',
+      tecnologia:'linear-gradient(135deg,#C8102E,#E8415C)',
+      sustentabilidade:'linear-gradient(135deg,#059669,#10B981)',
+      frotas:'linear-gradient(135deg,#7C3AED,#A78BFA)',
+      dicas:'linear-gradient(135deg,#D97706,#F59E0B)',
+      outros:'linear-gradient(135deg,#374151,#6B7280)'
+    };
+
+    function buildCard(p) {
+      const grad  = p.imagem_cor || CAT_GRADS[p.categoria] || CAT_GRADS.outros;
+      const icon  = p.icone_fa   || 'fa-bolt';
+      const cat   = p.categoria  || 'outros';
+      const data  = new Date(p.criado_em).toLocaleDateString('pt-BR', {day:'2-digit',month:'short',year:'numeric'});
+      const tempo = p.tempo_leitura || 3;
+      return `<div class="blog-card" data-category="${cat}">
+        <div class="blog-img" style="background:${grad};">
+          <div class="blog-img-icon"><i class="fa-solid ${icon}"></i></div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> ${data}</span>
+            <span class="blog-read"><i class="fa-solid fa-clock"></i> ${tempo} min</span>
+          </div>
+          <span class="badge ${CAT_COLORS[cat]}" style="margin-bottom:10px;">${CAT_LABELS[cat]}</span>
+          <h3 class="blog-title">${p.titulo}</h3>
+          <p class="blog-excerpt">${p.excerpt || ''}</p>
+          <a href="blog-post.html?slug=${p.slug}" class="blog-link">Ler artigo completo →</a>
+        </div>
+      </div>`;
+    }
+
+    async function loadBlogPosts() {
+      if (typeof db === 'undefined') return;
+      const { data, error } = await db.from('posts')
+        .select('*').eq('publicado', true).order('criado_em', {ascending: false});
+      if (error || !data || !data.length) return;
+
+      // Substitui o grid de posts
+      const grid = document.querySelector('.blog-main-grid');
+      if (!grid) return;
+      grid.innerHTML = data.map(buildCard).join('');
+
+      // Atualiza contadores da sidebar por categoria
+      const counts = {};
+      data.forEach(p => { counts[p.categoria] = (counts[p.categoria] || 0) + 1; });
+      document.querySelectorAll('.sidebar-cat-link').forEach(a => {
+        const cat = a.dataset.filter;
+        const badge = a.parentElement.querySelector('.badge');
+        if (badge && counts[cat]) badge.textContent = counts[cat];
+      });
+
+      // Reconecta os filtros de categoria aos novos cards
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const f = btn.dataset.filter;
+          document.querySelectorAll('.blog-card').forEach(c => {
+            c.style.display = (f === 'all' || c.dataset.category === f) ? '' : 'none';
+          });
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadBlogPosts);
+  })();
+  </script>
 </body>
 </html>

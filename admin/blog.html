@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog – Admin LC Baterias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    .blog-form-tabs{display:flex;gap:0;border:2px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:18px}
+    .blog-tab{flex:1;padding:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:#f8fafc;color:#64748b;font-family:'Inter',sans-serif;transition:all .18s}
+    .blog-tab.active{background:#0057B8;color:#fff}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+    .preview-box{background:#f8fafc;border:2px solid #e5e7eb;border-radius:8px;padding:16px;min-height:120px;font-size:14px;color:#374151;line-height:1.7}
+    .icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;max-height:160px;overflow-y:auto}
+    .icon-option{padding:10px;border:2px solid #e5e7eb;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .15s}
+    .icon-option:hover{border-color:#0057B8;background:#f0f9ff}
+    .icon-option.selected{border-color:#0057B8;background:#dbeafe;color:#0057B8}
+  </style>
+</head>
+<body>
+<div class="admin-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../assets/icons/logo.png" alt="LC Baterias">
+      <div class="sidebar-logo-text">Painel Admin</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Menu</div>
+      <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a href="pontos.html"    class="nav-item"><i class="fa-solid fa-map-location-dot"></i> Pontos de Assistência</a>
+      <a href="blog.html"      class="nav-item active"><i class="fa-solid fa-newspaper"></i> Blog</a>
+      <a href="banners.html"   class="nav-item"><i class="fa-solid fa-images"></i> Banners</a>
+      <div class="nav-section" style="margin-top:8px">Site</div>
+      <a href="../index.html" target="_blank" class="nav-item"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver site</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="user-email"></div>
+      <button class="btn-logout" id="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <h1>Blog</h1>
+        <p>Crie e gerencie os artigos do blog</p>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-primary" id="btn-novo"><i class="fa-solid fa-plus"></i> Novo Post</button>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="table-card">
+        <div class="table-card-head">
+          <div>
+            <h3>Todos os Posts</h3>
+            <p id="total-label">Carregando...</p>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Autor</th>
+                <th>Leitura</th>
+                <th>Publicado</th>
+                <th>Data</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tb-posts"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ADD/EDIT -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal modal-lg">
+    <div class="modal-head">
+      <h2 id="modal-title">Novo Post</h2>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="f-id">
+
+      <div class="blog-form-tabs">
+        <button class="blog-tab active" onclick="switchTab('tab-info',this)">Informações</button>
+        <button class="blog-tab" onclick="switchTab('tab-conteudo',this)">Conteúdo</button>
+        <button class="blog-tab" onclick="switchTab('tab-visual',this)">Visual</button>
+      </div>
+
+      <!-- TAB: INFO -->
+      <div class="tab-panel active" id="tab-info">
+        <div class="form-group">
+          <label>Título *</label>
+          <input type="text" id="f-titulo" class="form-control" placeholder="Ex: 5 sinais de que sua bateria precisa ser trocada" oninput="gerarSlug(this.value)">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Slug (URL) *</label>
+            <input type="text" id="f-slug" class="form-control" placeholder="sinais-bateria-precisa-ser-trocada">
+            <span class="form-hint">Gerado automaticamente. Não use espaços ou acentos.</span>
+          </div>
+          <div class="form-group">
+            <label>Categoria *</label>
+            <select id="f-categoria" class="form-control">
+              <option value="">Selecione</option>
+              <option value="manutencao">Manutenção</option>
+              <option value="tecnologia">Tecnologia</option>
+              <option value="sustentabilidade">Sustentabilidade</option>
+              <option value="dicas">Dicas</option>
+              <option value="frotas">Frotas</option>
+              <option value="outros">Outros</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Resumo (excerpt)</label>
+          <textarea id="f-excerpt" class="form-control" rows="2" placeholder="Breve descrição que aparece nos cards do blog..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Autor</label>
+            <input type="text" id="f-autor" class="form-control" placeholder="LC Baterias" value="LC Baterias">
+          </div>
+          <div class="form-group">
+            <label>Tempo de leitura (min)</label>
+            <input type="number" id="f-tempo" class="form-control" min="1" max="60" value="3">
+          </div>
+        </div>
+        <label class="form-check">
+          <input type="checkbox" id="f-publicado">
+          <span>Publicado (visível no site)</span>
+        </label>
+      </div>
+
+      <!-- TAB: CONTEÚDO -->
+      <div class="tab-panel" id="tab-conteudo">
+        <div class="form-group">
+          <label>Conteúdo do artigo <span style="color:#94a3b8;font-weight:400">(HTML aceito)</span></label>
+          <textarea id="f-conteudo" class="form-control" rows="14" placeholder="<p>Escreva o conteúdo completo do artigo aqui...</p>&#10;&#10;<h2>Subtítulo</h2>&#10;<p>Parágrafo...</p>&#10;&#10;<ul>&#10;  <li>Item 1</li>&#10;  <li>Item 2</li>&#10;</ul>"></textarea>
+          <span class="form-hint">Use tags HTML para formatar: &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;em&gt;</span>
+        </div>
+        <div class="form-group">
+          <label>Pré-visualização</label>
+          <div class="preview-box" id="preview-box">O conteúdo aparecerá aqui conforme você digitar.</div>
+        </div>
+      </div>
+
+      <!-- TAB: VISUAL -->
+      <div class="tab-panel" id="tab-visual">
+        <div class="form-group">
+          <label>Cor do card no blog</label>
+          <div class="color-presets" id="color-presets"></div>
+          <input type="hidden" id="f-cor">
+        </div>
+        <hr class="form-sep">
+        <div class="form-group">
+          <label>Ícone do card</label>
+          <div class="icon-grid" id="icon-grid"></div>
+          <input type="hidden" id="f-icone" value="fa-bolt">
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="btn-cancel">Cancelar</button>
+      <button class="btn btn-success btn-sm" id="btn-save-draft" style="display:none"><i class="fa-solid fa-floppy-disk"></i> Salvar rascunho</button>
+      <button class="btn btn-primary" id="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
+<div class="modal-overlay" id="del-overlay">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <h2>Excluir Post</h2>
+      <button class="modal-close" onclick="closeModal('del-overlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:#374151">Tem certeza que deseja excluir <strong id="del-titulo"></strong>? Essa ação não pode ser desfeita.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('del-overlay')">Cancelar</button>
+      <button class="btn btn-danger" id="btn-confirm-del"><i class="fa-solid fa-trash"></i> Excluir</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toasts"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-config.js"></script>
+<script>
+const CAT_COLORS = {manutencao:'blue',tecnologia:'cyan',sustentabilidade:'green',dicas:'orange',frotas:'purple',outros:'gray'};
+const CORES = [
+  {label:'Azul',  val:'linear-gradient(135deg,#003D82,#0057B8)',  bg:'#003D82'},
+  {label:'Vermelho', val:'linear-gradient(135deg,#C8102E,#E8415C)', bg:'#C8102E'},
+  {label:'Verde', val:'linear-gradient(135deg,#059669,#10B981)',  bg:'#059669'},
+  {label:'Roxo',  val:'linear-gradient(135deg,#7C3AED,#A78BFA)',  bg:'#7C3AED'},
+  {label:'Laranja', val:'linear-gradient(135deg,#D97706,#F59E0B)', bg:'#D97706'},
+  {label:'Ciano',   val:'linear-gradient(135deg,#0E7490,#06B6D4)', bg:'#0E7490'},
+  {label:'Rosa',    val:'linear-gradient(135deg,#BE185D,#EC4899)', bg:'#BE185D'},
+  {label:'Cinza',   val:'linear-gradient(135deg,#374151,#6B7280)', bg:'#374151'},
+];
+const ICONS = ['fa-bolt','fa-battery-full','fa-car','fa-truck','fa-motorcycle','fa-recycle','fa-wrench','fa-plug','fa-temperature-half','fa-industry','fa-tractor','fa-anchor','fa-newspaper','fa-lightbulb','fa-star','fa-circle-check','fa-shield-halved','fa-leaf'];
+
+let editingId = null;
+let deletingId = null;
+let selectedColor = CORES[0].val;
+let selectedIcon  = 'fa-bolt';
+
+// Build color presets
+const presetWrap = document.getElementById('color-presets');
+CORES.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'color-preset' + (c.val === selectedColor ? ' selected' : '');
+  el.style.background = c.bg;
+  el.title = c.label;
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.color-preset').forEach(x=>x.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedColor = c.val;
+    document.getElementById('f-cor').value = c.val;
+  });
+  presetWrap.appendChild(el);
+});
+
+// Build icon grid
+const iconGrid = document.getElementById('icon-grid');
+ICONS.forEach(ic => {
+  const el = document.createElement('div');
+  el.className = 'icon-option' + (ic === selectedIcon ? ' selected' : '');
+  el.innerHTML = `<i class="fa-solid ${ic}"></i>`;
+  el.title = ic;
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.icon-option').forEach(x=>x.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedIcon = ic;
+    document.getElementById('f-icone').value = ic;
+  });
+  iconGrid.appendChild(el);
+});
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.blog-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+document.getElementById('f-conteudo').addEventListener('input', function() {
+  document.getElementById('preview-box').innerHTML = this.value || '<em style="color:#94a3b8">Conteúdo vazio.</em>';
+});
+
+function gerarSlug(titulo) {
+  if (editingId) return; // Não sobrescreve o slug ao editar
+  const slug = titulo.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9\s-]/g,'').trim()
+    .replace(/\s+/g,'-').replace(/-+/g,'-');
+  document.getElementById('f-slug').value = slug;
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function toast(msg, type='success') {
+  const w = document.getElementById('toasts');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="fa-solid ${type==='success'?'fa-circle-check':type==='error'?'fa-circle-xmark':'fa-circle-info'}"></i>${msg}`;
+  w.appendChild(t);
+  setTimeout(() => { t.style.animation='toastOut .3s ease forwards'; setTimeout(()=>t.remove(),300); }, 3000);
+}
+
+function resetForm() {
+  editingId = null;
+  ['f-id','f-titulo','f-slug','f-excerpt','f-conteudo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-categoria').value = '';
+  document.getElementById('f-autor').value = 'LC Baterias';
+  document.getElementById('f-tempo').value = '3';
+  document.getElementById('f-publicado').checked = false;
+  document.getElementById('f-cor').value = CORES[0].val;
+  document.getElementById('f-icone').value = 'fa-bolt';
+  document.getElementById('preview-box').innerHTML = 'O conteúdo aparecerá aqui conforme você digitar.';
+  // Reset color selection
+  selectedColor = CORES[0].val;
+  document.querySelectorAll('.color-preset').forEach((el,i)=>el.classList.toggle('selected', i===0));
+  // Reset icon selection
+  selectedIcon = 'fa-bolt';
+  document.querySelectorAll('.icon-option').forEach((el,i)=>el.classList.toggle('selected', i===0));
+  // Go to first tab
+  switchTab('tab-info', document.querySelectorAll('.blog-tab')[0]);
+}
+
+async function loadPosts() {
+  const { data, error } = await db.from('posts').select('*').order('criado_em', {ascending:false});
+  if (error) { toast('Erro ao carregar posts.', 'error'); return; }
+  document.getElementById('total-label').textContent = `${data.length} post(s) cadastrado(s)`;
+  const tb = document.getElementById('tb-posts');
+  if (!data.length) {
+    tb.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-newspaper"></i><p>Nenhum post ainda.</p></div></td></tr>';
+    return;
+  }
+  tb.innerHTML = data.map(p => {
+    const color = CAT_COLORS[p.categoria] || 'gray';
+    const data_fmt = new Date(p.criado_em).toLocaleDateString('pt-BR');
+    return `<tr>
+      <td style="font-weight:700;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${p.titulo}">${p.titulo}</td>
+      <td><span class="badge badge-${color}">${p.categoria || '—'}</span></td>
+      <td style="color:#64748b">${p.autor || 'LC Baterias'}</td>
+      <td style="color:#94a3b8">${p.tempo_leitura || 3} min</td>
+      <td>
+        <label class="toggle">
+          <input type="checkbox" ${p.publicado ? 'checked' : ''} onchange="togglePublicado('${p.id}', this.checked)">
+          <span class="toggle-track"></span>
+        </label>
+      </td>
+      <td style="color:#94a3b8">${data_fmt}</td>
+      <td class="td-actions">
+        <button class="btn btn-edit btn-icon btn-sm" onclick="editPost('${p.id}')" title="Editar"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn btn-danger btn-icon btn-sm" onclick="confirmDel('${p.id}','${p.titulo.replace(/'/g,"\\'").replace(/"/g,'\\"')}')"><i class="fa-solid fa-trash"></i></button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function togglePublicado(id, val) {
+  const { error } = await db.from('posts').update({ publicado: val, atualizado_em: new Date().toISOString() }).eq('id', id);
+  if (error) { toast('Erro ao atualizar.', 'error'); loadPosts(); }
+  else toast(val ? 'Post publicado.' : 'Post movido para rascunho.');
+}
+
+async function editPost(id) {
+  const { data } = await db.from('posts').select('*').eq('id', id).single();
+  if (!data) return;
+  editingId = id;
+  document.getElementById('f-id').value        = data.id;
+  document.getElementById('f-titulo').value     = data.titulo || '';
+  document.getElementById('f-slug').value       = data.slug || '';
+  document.getElementById('f-categoria').value  = data.categoria || '';
+  document.getElementById('f-excerpt').value    = data.excerpt || '';
+  document.getElementById('f-conteudo').value   = data.conteudo || '';
+  document.getElementById('f-autor').value      = data.autor || 'LC Baterias';
+  document.getElementById('f-tempo').value      = data.tempo_leitura || 3;
+  document.getElementById('f-publicado').checked= !!data.publicado;
+  document.getElementById('f-cor').value        = data.imagem_cor || CORES[0].val;
+  document.getElementById('f-icone').value      = data.icone_fa || 'fa-bolt';
+  document.getElementById('preview-box').innerHTML = data.conteudo || '';
+
+  // Set color preset visual
+  const corVal = data.imagem_cor || CORES[0].val;
+  document.querySelectorAll('.color-preset').forEach((el,i)=>{
+    el.classList.toggle('selected', CORES[i] && CORES[i].val === corVal);
+  });
+  selectedColor = corVal;
+
+  // Set icon visual
+  const iconVal = data.icone_fa || 'fa-bolt';
+  document.querySelectorAll('.icon-option').forEach((el,i)=>{
+    el.classList.toggle('selected', ICONS[i] === iconVal);
+  });
+  selectedIcon = iconVal;
+
+  document.getElementById('modal-title').textContent = 'Editar Post';
+  switchTab('tab-info', document.querySelectorAll('.blog-tab')[0]);
+  openModal('modal-overlay');
+}
+
+function confirmDel(id, titulo) {
+  deletingId = id;
+  document.getElementById('del-titulo').textContent = titulo;
+  openModal('del-overlay');
+}
+
+document.getElementById('btn-confirm-del').addEventListener('click', async () => {
+  const { error } = await db.from('posts').delete().eq('id', deletingId);
+  closeModal('del-overlay');
+  if (error) toast('Erro ao excluir.', 'error');
+  else { toast('Post excluído.'); loadPosts(); }
+});
+
+document.getElementById('btn-novo').addEventListener('click', () => {
+  resetForm();
+  document.getElementById('modal-title').textContent = 'Novo Post';
+  openModal('modal-overlay');
+});
+
+document.getElementById('btn-save').addEventListener('click', () => salvarPost());
+
+async function salvarPost() {
+  const titulo    = document.getElementById('f-titulo').value.trim();
+  const slug      = document.getElementById('f-slug').value.trim();
+  const categoria = document.getElementById('f-categoria').value;
+  if (!titulo || !slug || !categoria) { toast('Preencha título, slug e categoria.', 'error'); return; }
+
+  const payload = {
+    titulo, slug, categoria,
+    excerpt:       document.getElementById('f-excerpt').value.trim() || null,
+    conteudo:      document.getElementById('f-conteudo').value.trim() || null,
+    autor:         document.getElementById('f-autor').value.trim() || 'LC Baterias',
+    tempo_leitura: parseInt(document.getElementById('f-tempo').value) || 3,
+    publicado:     document.getElementById('f-publicado').checked,
+    imagem_cor:    document.getElementById('f-cor').value || CORES[0].val,
+    icone_fa:      document.getElementById('f-icone').value || 'fa-bolt',
+    atualizado_em: new Date().toISOString()
+  };
+
+  const btn = document.getElementById('btn-save');
+  btn.disabled = true; btn.textContent = 'Salvando...';
+
+  let error;
+  if (editingId) {
+    ({ error } = await db.from('posts').update(payload).eq('id', editingId));
+  } else {
+    ({ error } = await db.from('posts').insert(payload));
+  }
+  btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar';
+
+  if (error) {
+    toast('Erro: ' + (error.message.includes('slug') ? 'Slug já existe. Use outro slug.' : error.message), 'error');
+    return;
+  }
+  closeModal('modal-overlay');
+  toast(editingId ? 'Post atualizado!' : 'Post criado!');
+  loadPosts();
+}
+
+document.getElementById('modal-close').addEventListener('click', () => closeModal('modal-overlay'));
+document.getElementById('btn-cancel').addEventListener('click', () => closeModal('modal-overlay'));
+document.getElementById('modal-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('modal-overlay'); });
+document.getElementById('del-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('del-overlay'); });
+
+document.getElementById('btn-logout').addEventListener('click', async () => {
+  await db.auth.signOut(); location.href = 'index.html';
+});
+
+async function init() {
+  const { data: { session } } = await db.auth.getSession();
+  if (!session) { location.href = 'index.html'; return; }
+  document.getElementById('user-email').textContent = session.user.email;
+  loadPosts();
+}
+init();
+</script>
+</body>
+</html>

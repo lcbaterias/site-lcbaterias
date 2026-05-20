@@ -624,6 +624,53 @@
     </a>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
   <script src="js/main.js"></script>
+  <script>
+  (function() {
+    async function loadBanners() {
+      if (typeof db === 'undefined') return;
+      const { data, error } = await db.from('banners')
+        .select('*').eq('ativo', true).order('ordem');
+      if (error || !data || !data.length) return;
+
+      const slider  = document.querySelector('.hero-slider');
+      const dotsWrap = document.querySelector('.hero-controls');
+      if (!slider || !dotsWrap) return;
+
+      // Gera slides
+      slider.innerHTML = data.map((b, i) => `
+        <div class="hero-slide hero-slide-${i+1} ${i===0?'active':''}">
+          <div class="container">
+            <div class="hero-content">
+              <div class="hero-text">
+                <span class="hero-tag"><i class="fa-solid ${b.tag_icon||'fa-bolt'}"></i> ${b.tag||''}</span>
+                <h1 class="hero-title">${b.titulo}${b.titulo_destaque?`<br><span>${b.titulo_destaque}</span>`:''}${b.titulo&&b.titulo_destaque?'':''}</h1>
+                <p class="hero-desc">${b.subtitulo||''}</p>
+                <div class="hero-buttons">
+                  ${b.btn1_texto ? `<a href="${b.btn1_link||'#'}" class="btn btn-white" target="${b.btn1_target||'_self'}" ${b.btn1_target==='_blank'?'rel="noopener"':''}>${b.btn1_texto}</a>` : ''}
+                  ${b.btn2_texto ? `<a href="${b.btn2_link||'#'}" class="btn btn-outline-white" target="${b.btn2_target||'_self'}" ${b.btn2_target==='_blank'?'rel="noopener"':''}>${b.btn2_texto}</a>` : ''}
+                </div>
+              </div>
+              <div class="hero-image"><div class="hero-img-placeholder">
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="white"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm0-4h-2V9h2v5z"/></svg>
+              </div></div>
+            </div>
+          </div>
+        </div>`).join('');
+
+      // Gera dots
+      dotsWrap.innerHTML = data.map((_, i) =>
+        `<button class="hero-dot ${i===0?'active':''}" aria-label="Slide ${i+1}"></button>`
+      ).join('');
+
+      // Reinicia o slider do main.js se existir
+      if (typeof window.initHeroSlider === 'function') window.initHeroSlider();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadBanners);
+  })();
+  </script>
 </body>
 </html>
