@@ -137,11 +137,22 @@
           <h3 style="font-size:22px;font-weight:800;margin-bottom:8px;">Envie uma Mensagem</h3>
           <p style="color:var(--text-gray);font-size:15px;margin-bottom:28px;">Preencha o formulário e entraremos em contato em breve.</p>
 
+          <div id="form-success" style="display:none;text-align:center;padding:48px 24px;">
+            <div style="font-size:56px;margin-bottom:16px;">✅</div>
+            <h3 style="font-size:22px;font-weight:800;color:var(--text-dark);margin-bottom:8px;">Mensagem enviada!</h3>
+            <p style="color:var(--text-gray);font-size:15px;">Recebemos seu contato e responderemos em breve no e-mail ou telefone informado.</p>
+          </div>
+
           <form id="contact-form" novalidate>
+            <input type="hidden" name="access_key" value="d6be97c7-614b-4aef-ab44-223ee173a52a" />
+            <input type="hidden" name="subject" value="Novo contato pelo site – LC Baterias" />
+            <input type="hidden" name="from_name" value="Site LC Baterias" />
+            <input type="checkbox" name="botcheck" style="display:none;" />
+
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label" for="nome">Nome completo *</label>
-                <input class="form-input" type="text" id="nome" name="nome" placeholder="Seu nome" required />
+                <input class="form-input" type="text" id="nome" name="name" placeholder="Seu nome" required />
               </div>
               <div class="form-group">
                 <label class="form-label" for="telefone">Telefone / WhatsApp *</label>
@@ -174,20 +185,63 @@
 
             <div class="form-group">
               <label class="form-label" for="mensagem">Mensagem *</label>
-              <textarea class="form-textarea" id="mensagem" name="mensagem" placeholder="Descreva sua dúvida, necessidade ou como podemos ajudá-lo..." required></textarea>
+              <textarea class="form-textarea" id="mensagem" name="message" placeholder="Descreva sua dúvida, necessidade ou como podemos ajudá-lo..." required></textarea>
             </div>
 
             <div style="margin-bottom:20px;">
               <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;color:var(--text-gray);">
-                <input type="checkbox" style="margin-top:3px;accent-color:var(--primary);" required />
+                <input type="checkbox" id="privacidade" style="margin-top:3px;accent-color:var(--primary);" required />
                 Concordo com a <a href="politica-de-privacidade.html" style="color:var(--primary);">Política de Privacidade</a> e autorizo o uso dos meus dados para fins de atendimento.
               </label>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:16px;">
-              Enviar Mensagem
+            <div id="form-error" style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:14px;color:#dc2626;"></div>
+
+            <button type="submit" id="btn-submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:16px;">
+              <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem
             </button>
           </form>
+
+          <script>
+          document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const form    = this;
+            const btn     = document.getElementById('btn-submit');
+            const errBox  = document.getElementById('form-error');
+
+            // validação simples
+            const privacidade = document.getElementById('privacidade');
+            if (!privacidade.checked) {
+              errBox.textContent = 'Você precisa aceitar a Política de Privacidade para enviar.';
+              errBox.style.display = 'block';
+              return;
+            }
+            errBox.style.display = 'none';
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+
+            try {
+              const res  = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: new FormData(form)
+              });
+              const json = await res.json();
+
+              if (json.success) {
+                form.style.display = 'none';
+                document.getElementById('form-success').style.display = 'block';
+              } else {
+                throw new Error(json.message || 'Erro ao enviar.');
+              }
+            } catch(err) {
+              errBox.textContent = 'Não foi possível enviar. Tente novamente ou fale pelo WhatsApp.';
+              errBox.style.display = 'block';
+              btn.disabled = false;
+              btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Mensagem';
+            }
+          });
+          </script>
         </div>
       </div>
     </div>
