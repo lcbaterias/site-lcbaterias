@@ -473,53 +473,7 @@
         <p class="section-subtitle">Dicas de manutenção, novidades e tudo sobre baterias para você estar sempre informado.</p>
       </div>
 
-      <div class="blog-grid">
-        <div class="blog-card">
-          <div class="blog-img" style="background:linear-gradient(135deg,#003D82,#0057B8);">
-            <div class="blog-img-icon"><i class="fa-solid fa-battery-full"></i></div>
-          </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> 10 Mai 2026</span>
-              <span class="blog-read"><i class="fa-solid fa-clock"></i> 4 min de leitura</span>
-            </div>
-            <span class="badge badge-blue" style="margin-bottom:10px;">Manutenção</span>
-            <h3 class="blog-title"><a href="blog.html">5 sinais de que sua bateria precisa ser trocada</a></h3>
-            <p class="blog-excerpt">Descubra os principais indícios de que a bateria do seu veículo está chegando ao fim da vida útil e evite ficar na mão.</p>
-            <a href="blog.html" class="blog-link">Ler mais <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-img" style="background:linear-gradient(135deg,#C8102E,#E8415C);">
-            <div class="blog-img-icon"><i class="fa-solid fa-bolt"></i></div>
-          </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> 05 Mai 2026</span>
-              <span class="blog-read"><i class="fa-solid fa-clock"></i> 3 min de leitura</span>
-            </div>
-            <span class="badge badge-red" style="margin-bottom:10px;">Tecnologia</span>
-            <h3 class="blog-title"><a href="blog.html">Bateria AGM vs. Convencional: qual escolher?</a></h3>
-            <p class="blog-excerpt">Entenda as diferenças entre os tipos de bateria e saiba qual é a melhor opção para o seu veículo e perfil de uso.</p>
-            <a href="blog.html" class="blog-link">Ler mais <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-img" style="background:linear-gradient(135deg,#059669,#10B981);">
-            <div class="blog-img-icon"><i class="fa-solid fa-recycle"></i></div>
-          </div>
-          <div class="blog-body">
-            <div class="blog-meta">
-              <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> 28 Abr 2026</span>
-              <span class="blog-read"><i class="fa-solid fa-clock"></i> 5 min de leitura</span>
-            </div>
-            <span class="badge badge-green" style="margin-bottom:10px;">Sustentabilidade</span>
-            <h3 class="blog-title"><a href="blog.html">Como descartar sua bateria usada corretamente</a></h3>
-            <p class="blog-excerpt">A bateria usada é considerada resíduo perigoso. Saiba como fazer o descarte de forma responsável e ecológica.</p>
-            <a href="blog.html" class="blog-link">Ler mais <svg width="14" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
-          </div>
-        </div>
-      </div>
+      <div class="blog-grid" id="home-blog-grid"></div>
 
       <div style="text-align:center;margin-top:40px;">
         <a href="blog.html" class="btn btn-outline">Ver todos os artigos</a>
@@ -673,6 +627,62 @@
     }
 
     document.addEventListener('DOMContentLoaded', loadBanners);
+  })();
+  </script>
+  <script>
+  (function() {
+    const CAT_GRADS = {
+      manutencao:'linear-gradient(135deg,#003D82,#0057B8)',
+      tecnologia:'linear-gradient(135deg,#C8102E,#E8415C)',
+      sustentabilidade:'linear-gradient(135deg,#059669,#10B981)',
+      frotas:'linear-gradient(135deg,#7C3AED,#A78BFA)',
+      dicas:'linear-gradient(135deg,#D97706,#F59E0B)',
+      outros:'linear-gradient(135deg,#374151,#6B7280)'
+    };
+    const CAT_LABELS = {manutencao:'Manutenção',tecnologia:'Tecnologia',sustentabilidade:'Sustentabilidade',dicas:'Dicas',frotas:'Frotas',outros:'Outros'};
+    const CAT_BADGES = {manutencao:'badge-blue',tecnologia:'badge-red',sustentabilidade:'badge-green',dicas:'badge-orange',frotas:'badge-purple',outros:'badge-gray'};
+    const ARROW = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>';
+
+    async function loadHomeBlog() {
+      const grid = document.getElementById('home-blog-grid');
+      const section = grid && grid.closest('section');
+      if (!grid || typeof db === 'undefined') { if (section) section.style.display = 'none'; return; }
+
+      const { data, error } = await db.from('posts')
+        .select('id,titulo,slug,categoria,excerpt,imagem_cor,icone_fa,tempo_leitura,criado_em')
+        .eq('publicado', true)
+        .order('criado_em', { ascending: false })
+        .limit(3);
+
+      if (error || !data || !data.length) { section.style.display = 'none'; return; }
+
+      grid.innerHTML = data.map(p => {
+        const cat   = p.categoria || 'outros';
+        const grad  = p.imagem_cor || CAT_GRADS[cat] || CAT_GRADS.outros;
+        const icon  = p.icone_fa || 'fa-bolt';
+        const label = CAT_LABELS[cat] || 'Outros';
+        const badge = CAT_BADGES[cat] || 'badge-gray';
+        const date  = new Date(p.criado_em).toLocaleDateString('pt-BR', {day:'2-digit',month:'short',year:'numeric'});
+        const tempo = p.tempo_leitura || 3;
+        return `<div class="blog-card">
+          <div class="blog-img" style="background:${grad};">
+            <div class="blog-img-icon"><i class="fa-solid ${icon}"></i></div>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span class="blog-date"><i class="fa-solid fa-calendar-days"></i> ${date}</span>
+              <span class="blog-read"><i class="fa-solid fa-clock"></i> ${tempo} min de leitura</span>
+            </div>
+            <span class="badge ${badge}" style="margin-bottom:10px;">${label}</span>
+            <h3 class="blog-title"><a href="blog-post.html?slug=${p.slug}">${p.titulo}</a></h3>
+            <p class="blog-excerpt">${p.excerpt || ''}</p>
+            <a href="blog-post.html?slug=${p.slug}" class="blog-link">Ler mais ${ARROW}</a>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadHomeBlog);
   })();
   </script>
 </body>
