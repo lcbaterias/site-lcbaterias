@@ -230,44 +230,88 @@
 
   <!-- FEATURES / WHY CHOOSE US -->
   <section class="section features-section">
+    <style>
+      .why-lc-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+      .why-lc-items { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+      .why-lc-item { display:flex; gap:14px; align-items:flex-start; }
+      .why-lc-icon { width:44px; height:44px; min-width:44px; background:var(--primary); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px; }
+      .why-lc-title { font-weight:700; font-size:15px; color:var(--text-dark); margin-bottom:5px; }
+      .why-lc-desc { font-size:13px; color:var(--text-gray); line-height:1.6; }
+      @media(max-width:900px) {
+        .why-lc-grid { grid-template-columns:1fr; gap:36px; }
+        .why-lc-items { grid-template-columns:1fr; }
+      }
+      @media(max-width:480px) {
+        .why-lc-items { grid-template-columns:1fr; }
+      }
+    </style>
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Por que LC Baterias?</span>
-        <h2 class="section-title">Compromisso com a sua segurança</h2>
-        <p class="section-subtitle">Mais de 15 anos entregando qualidade, confiança e suporte para quem depende de energia todos os dias.</p>
-      </div>
+      <div class="why-lc-grid">
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
-          <h3 class="feature-title">Garantia Estendida</h3>
-          <p class="feature-desc">Todos os nossos produtos possuem garantia de fábrica e assistência técnica especializada em toda a nossa área de atendimento.</p>
+        <div>
+          <img src="assets/images/Imagem LC Baterias - Por que escolhera LC.png"
+               alt="Técnico LC Baterias instalando bateria Cral"
+               style="width:100%;border-radius:16px;object-fit:cover;display:block;max-height:600px;">
         </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
-          <h3 class="feature-title">Alta Performance</h3>
-          <p class="feature-desc">Tecnologia de ponta com maior capacidade de partida a frio, mais vida útil e desempenho superior em qualquer condição.</p>
+
+        <div>
+          <span class="section-tag" style="display:inline-block;margin-bottom:16px;">Por que LC Baterias?</span>
+          <h2 style="font-size:clamp(26px,3.5vw,40px);font-weight:900;color:var(--text-dark);line-height:1.2;margin-bottom:16px;">Compromisso com a sua segurança</h2>
+          <p style="color:var(--text-gray);font-size:16px;line-height:1.7;margin-bottom:36px;">Mais de 15 anos entregando qualidade, confiança e suporte para quem depende de energia todos os dias.</p>
+
+          <div class="why-lc-items">
+
+            <div class="why-lc-item">
+              <div class="why-lc-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <div>
+                <div class="why-lc-title">Garantia Estendida</div>
+                <div class="why-lc-desc">Todos os nossos produtos possuem garantia de fábrica e assistência técnica especializada em toda a nossa área de atendimento.</div>
+              </div>
+            </div>
+
+            <div class="why-lc-item">
+              <div class="why-lc-icon"><i class="fa-solid fa-bolt"></i></div>
+              <div>
+                <div class="why-lc-title">Alta Performance</div>
+                <div class="why-lc-desc">Tecnologia de ponta com maior capacidade de partida a frio, mais vida útil e desempenho superior em qualquer condição.</div>
+              </div>
+            </div>
+
+            <div class="why-lc-item">
+              <div class="why-lc-icon"><i class="fa-solid fa-truck-fast"></i></div>
+              <div>
+                <div class="why-lc-title">Entrega Rápida</div>
+                <div class="why-lc-desc">Entregamos com agilidade no DF, GO, Norte de MG, BA e TO. Retire também em qualquer uma de nossas unidades.</div>
+              </div>
+            </div>
+
+            <div class="why-lc-item">
+              <div class="why-lc-icon"><i class="fa-solid fa-wrench"></i></div>
+              <div>
+                <div class="why-lc-title">Suporte Técnico</div>
+                <div class="why-lc-desc">Equipe especializada para ajudar na escolha do produto ideal e no diagnóstico do seu sistema elétrico.</div>
+              </div>
+            </div>
+
+            <div class="why-lc-item">
+              <div class="why-lc-icon"><i class="fa-solid fa-coins"></i></div>
+              <div>
+                <div class="why-lc-title">Melhor Custo-Benefício</div>
+                <div class="why-lc-desc">Preços competitivos sem abrir mão da qualidade. Parcelamento facilitado e condições especiais para empresas.</div>
+              </div>
+            </div>
+
+            <div class="why-lc-item">
+              <div class="why-lc-icon"><i class="fa-solid fa-leaf"></i></div>
+              <div>
+                <div class="why-lc-title">Compromisso Ambiental</div>
+                <div class="why-lc-desc">Programa de descarte e reciclagem de baterias usadas conforme as normas ambientais vigentes.</div>
+              </div>
+            </div>
+
+          </div>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
-          <h3 class="feature-title">Entrega Rápida</h3>
-          <p class="feature-desc">Entregamos com agilidade no DF, GO, Norte de MG, BA e TO. Retire também em qualquer uma de nossas unidades.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-wrench"></i></div>
-          <h3 class="feature-title">Suporte Técnico</h3>
-          <p class="feature-desc">Equipe especializada para ajudar na escolha do produto ideal e no diagnóstico do seu sistema elétrico.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-coins"></i></div>
-          <h3 class="feature-title">Melhor Custo-Benefício</h3>
-          <p class="feature-desc">Preços competitivos sem abrir mão da qualidade. Parcelamento facilitado e condições especiais para empresas.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-leaf"></i></div>
-          <h3 class="feature-title">Compromisso Ambiental</h3>
-          <p class="feature-desc">Programa de descarte e reciclagem de baterias usadas conforme as normas ambientais vigentes.</p>
-        </div>
+
       </div>
     </div>
   </section>
